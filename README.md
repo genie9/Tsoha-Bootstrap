@@ -1,10 +1,12 @@
-# Tietokantasovelluksen esittelysivu
+Tietokantasovellusharjoitustyö
+
+Jäsenrekisteripalvelu
+
+Sovellus kehitetään Kirkkonummen seudun kiipeilijäyhdistykselle (koodinimi Kisky) korvaamaan excelissa olevaa jäsenrekisteria ja helpottamaan yhdistyksen hallituksen laskutukseen sekä jäsenkirjanpitoon liittyvää työtä.
 
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Linkki dokumentaatiooni](https://docs.google.com/document/d/1jf1lrgJPD2W91Zcf93h8SzKI2unxPkn0C3lFbOkwTTA/edit?usp=sharing)
 
-## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
