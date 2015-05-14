@@ -16,7 +16,6 @@
     <data key="d0"/>
     <node id="n0">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="100.0" width="60.0" x="-400.0" y="-260.0"/>
@@ -38,7 +37,6 @@
     </node>
     <node id="n1">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="199.0" x="-189.5" y="-205.0"/>
@@ -57,7 +55,6 @@
     </node>
     <node id="n2">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="100.0" width="60.0" x="330.0" y="-320.0"/>
@@ -79,7 +76,6 @@
     </node>
     <node id="n3">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="209.0" x="-104.5" y="-325.0"/>
@@ -98,7 +94,6 @@
     </node>
     <node id="n4">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="110.0" x="5.0" y="-255.0"/>
@@ -117,7 +112,6 @@
     </node>
     <node id="n5">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="194.0" x="-187.0" y="-115.0"/>
@@ -137,7 +131,6 @@ tarkastelu<y:LabelModel>
     </node>
     <node id="n6">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="100.0" width="60.0" x="341.0" y="-20.0"/>
@@ -160,7 +153,6 @@ jäsen<y:LabelModel>
     </node>
     <node id="n7">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="100.0" width="60.0" x="-390.0" y="10.0"/>
@@ -182,7 +174,6 @@ jäsen<y:LabelModel>
     </node>
     <node id="n8">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="146.0" x="5.0" y="-160.0"/>
@@ -201,7 +192,6 @@ jäsen<y:LabelModel>
     </node>
     <node id="n9">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="189.5" x="-184.75" y="-25.0"/>
@@ -220,7 +210,6 @@ jäsen<y:LabelModel>
     </node>
     <node id="n10">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="159.0" x="-187.0" y="65.0"/>
@@ -239,7 +228,6 @@ jäsen<y:LabelModel>
     </node>
     <node id="n11">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="141.0" x="-178.0" y="145.0"/>
@@ -259,7 +247,6 @@ lisääminen<y:LabelModel>
     </node>
     <node id="n12">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="159.0" x="-178.0" y="225.0"/>
@@ -278,7 +265,6 @@ lisääminen<y:LabelModel>
     </node>
     <node id="n13">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="164.0" x="-4.0" y="-65.0"/>
@@ -297,7 +283,6 @@ lisääminen<y:LabelModel>
     </node>
     <node id="n14">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="209.0" x="-14.5" y="25.0"/>
@@ -316,7 +301,6 @@ lisääminen<y:LabelModel>
     </node>
     <node id="n15">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="50.0" width="164.0" x="2.0" y="95.0"/>
@@ -336,7 +320,6 @@ ja hallinta<y:LabelModel>
     </node>
     <node id="n16">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="60.0" width="249.5" x="-19.0" y="171.0"/>
@@ -356,7 +339,6 @@ ja hallinta<y:LabelModel>
     </node>
     <edge id="e0" source="n1" target="n0">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-99.5" sy="0.0" tx="0.0" ty="0.0"/>
@@ -368,7 +350,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e1" source="n3" target="n2">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="104.5" sy="0.0" tx="0.0" ty="0.0"/>
@@ -380,7 +361,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e2" source="n0" target="n3">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-104.5" ty="0.0"/>
@@ -392,7 +372,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e3" source="n0" target="n5">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-97.0" ty="0.0"/>
@@ -404,7 +383,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e4" source="n2" target="n4">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="55.0" ty="0.0"/>
@@ -416,7 +394,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e5" source="n2" target="n8">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="73.0" ty="0.0"/>
@@ -428,7 +405,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e6" source="n10" target="n7">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-79.5" sy="0.0" tx="0.0" ty="0.0"/>
@@ -440,7 +416,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e7" source="n7" target="n9">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-94.75" ty="0.0"/>
@@ -452,7 +427,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e8" source="n7" target="n11">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-70.5" ty="0.0"/>
@@ -464,7 +438,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e9" source="n12" target="n7">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-79.5" sy="0.0" tx="0.0" ty="0.0"/>
@@ -476,7 +449,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e10" source="n6" target="n13">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="82.0" ty="0.0"/>
@@ -488,7 +460,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e11" source="n6" target="n14">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="104.5" ty="0.0"/>
@@ -500,7 +471,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e12" source="n6" target="n16">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="124.75" ty="0.0"/>
@@ -512,7 +482,6 @@ ja hallinta<y:LabelModel>
     </edge>
     <edge id="e13" source="n6" target="n15">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="82.0" ty="0.0"/>
