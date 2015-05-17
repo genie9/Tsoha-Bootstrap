@@ -33,18 +33,17 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!-- Sovelluksen nimi -->
-                    <a class="navbar-brand" href="{{base_path}}">Yhdistys</a>
+                    <a class="navbar-brand" href="{{base_path}}">Pääsivu</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li><a href="{{base_path}}">Jäseneksi</a></li>
-                        <li><a href="{{base_path}}">Oma sivu</a></li>
+                        <li><a href="#">Jäsenluettelo</a></li>
+                        <li><a href="#">Kokoukset</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{base_path}}"><span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
-                        <li><a href="{{base_path}}"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu</a></li>
+                        <li><a href="{{base_path}}"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu ulos</a></li>
                     </ul>
                 </div>
             </div>
@@ -52,10 +51,7 @@
 
         <div id="main-container">
             <!-- Dynaaminen sisältö tulee tähän -->
-            {% block content %}
-            Tämä on Kirkkonummen seudun kiipeilijöiden oma profiilisivusto.
-            Täältä löydät säännöt ja muut hassut dokumentit.
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
 
         {% block body %}
