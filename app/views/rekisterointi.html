@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Hae yhdistyksen jäsenyyttä</h1>
+
+<!--jäsenille tulee näkymään näin-->
+<div hidden> 
+    <h1>Muokkaa tietoja</h1>
+</div>
+
+<form>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label>Etunimi</label>
+            <input type="text" class="form-control" value="Kira"/>
+        </div>
+        <div class="col-sm-6">
+            <label>Sukunimi</label>
+            <input type="text" class="form-control" value="Kallio"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label>Syntymäaika</label>
+            <input type="text" class="form-control" value="11.11.2011"/>
+        </div>
+        <div class="col-sm-6">
+            <label>Sähköposti</label>
+            <input type="text" class="form-control" value="kira.kallio@gmail.com"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label>Katuosoite</label>
+            <input type="text" class="form-control" value="Kalliokolo 12"/>
+        </div>
+        <div class="col-sm-6">
+            <label>Postinumero</label>
+            <input type="text" class="form-control" value="98765"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label>Puhelin</label>
+            <input type="text" class="form-control" value="555 4242"/>
+        </div>
+        <div class="col-sm-6">
+            <label>Alaikäisen huoltaja</label>
+            <input type="text" class="form-control" value=""/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label>Kiipeilylaji (voi valita monta)</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <div class="col-sm-2">
+                <label>
+                    <input type="checkbox"/>
+                    Perinteinen
+                </label>
+            </div>
+        </div>
+        <div class="checkbox">
+            <div class="col-sm-2">
+                <label>
+                    <input type="checkbox"/>
+                    Tekninen
+                </label>
+            </div>
+        </div>
+        <div class="checkbox">
+            <div class="col-sm-2">
+                <label>
+                    <input type="checkbox"/>
+                    Urheilu
+                </label>
+            </div>
+        </div>
+        <div class="checkbox">
+            <div class="col-sm-2">
+                <label>
+                    <input type="checkbox"/>
+                    Jää
+                </label>
+            </div>
+        </div>
+        <div class="checkbox">
+            <div class="col-sm-3">
+                <label>
+                    <input type="checkbox"/>
+                    Boulderointi
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-1">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"/>Muu
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <input type="text" class="form-control" value=""/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <label>Rinnakkainen seura</label>
+            <input type="text" class="form-control" value=""/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12" style="margin-top: 20px">
+            <button type="submit" class="btn btn-primary">Tallenna</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

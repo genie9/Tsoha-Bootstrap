@@ -3,15 +3,31 @@
 class HelloWorldController extends BaseController {
 
     public static function index() {
-        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
         View::make('base.html');
-//        echo 'Hello Universe!';
+    }
+
+    public static function rek() {
+        View::make('rekisterointi.html');
+    }
+
+    public static function login() {
+        View::make('login.html');
+    }
+
+    public static function profiili() {
+        View::make('profiili.html');
     }
 
     public static function hallinta() {
-        // Testaa koodiasi täällä
         View::make('hallinta_base.html');
-//        echo 'Hello World!';
+    }
+
+    public static function jasenrekisteri() {
+        View::make('jasenrekisteri.html');
+    }
+
+    public static function jasenet() {
+        View::make('jasenet.html');
     }
 
     public static function sandbox() {

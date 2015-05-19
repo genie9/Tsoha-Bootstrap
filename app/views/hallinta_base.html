@@ -39,7 +39,7 @@
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li><a href="#">Jäsenluettelo</a></li>
+                        <li><a href="hallinta/jasenrekisteri">Jäsenluettelo</a></li>
                         <li><a href="#">Kokoukset</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -50,8 +50,12 @@
         </nav>
 
         <div id="main-container">
+            <h1>Kirkkonummen seudun kiipeilijät</h1>
             <!-- Dynaaminen sisältö tulee tähän -->
-            {% block content %}{% endblock %}
+            {% block content %}
+            <p>Tämä sivusto on tarkoitettu ainostaan yhdistyksen hallituksen käyttöön.<br>
+               Ole varovainen kun teet muutoksia!</p>
+            {% endblock %}
         </div>
 
         {% block body %}

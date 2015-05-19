@@ -1,10 +1,29 @@
 #main-container{
-  max-width: 1200px;
-  padding: 10px 25px;
-  margin: 0px auto;
+    max-width: 1200px;
+    padding: 0px 25px;
+    margin: 0px auto;
 }
 
 .navbar .container-fluid{
-  max-width: 1200px;
-  margin: 0px auto;
+    max-width: 1200px;
+    margin: 0px auto;
 }
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+input { 
+    margin-bottom: 10px; 
+}
+
+.prof-ul {
+    list-style-type:none;
+    margin-top: 20px;
+    margin-left: -40px;   
+}
+
+.prof-ul > li {
+    padding-top: 10px;
+}
+

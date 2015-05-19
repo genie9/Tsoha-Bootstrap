@@ -1,0 +1,47 @@
+{% extends "hallinta_base.html" %}
+{% block content %}
+
+  <h2>Jäsenluettelo</h2>
+
+  <p>
+    <a href="/kisky/rekisterointi" class="btn btn-primary">Lisää jäsen</a>
+  </p>
+
+  <table class="table table-striped "><!--table-bordered-->
+    <thead>
+      <tr>
+        <th>Etunimi</th>
+        <th>Sukunimi</th>
+        <th>Syntymävuosi</th>
+        <th>Status</th>
+        <th>Sähköposti</th>
+        <th>Katuosoite</th>
+        <th>Postitoimipaikka</th>
+        <th>Puhelin</th>
+        <th>Alaikäisen huoltaja</th>
+        <th>Rinnakkais seura</th>
+        <th>Laji</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Jäsenten listaus -->
+      <tr>
+        <td>Himo</td>
+        <td>Kiipeilijä</td>
+        <td>21.12.2012</td>
+        <td><label class="label label-success">jäsen</label></td>
+        <td>himo.kiipeilijä@gmail.com</td>
+        <td>Kallioluola</td>
+        <td>12345 Yosemite</td>
+        <td>555 2323</td>
+        <td>-</td>
+        <td>-</td>
+        <td>tekno</td>
+        <!--aktiivinen ainostaan statuksen ollessa 'kesken'; toteutetaan myöhemmin-->
+        <th><a class="btn btn-warning btn-xs disabled">Lisää</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
+
