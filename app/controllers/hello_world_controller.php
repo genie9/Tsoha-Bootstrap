@@ -14,6 +14,10 @@ class HelloWorldController extends BaseController {
         View::make('login.html');
     }
 
+    public static function jasenet() {
+        View::make('jasenet.html');
+    }
+
     public static function profiili() {
         View::make('profiili.html');
     }
@@ -26,8 +30,12 @@ class HelloWorldController extends BaseController {
         View::make('jasenrekisteri.html');
     }
 
-    public static function jasenet() {
-        View::make('jasenet.html');
+    public static function kokoukset() {
+        View::make('kokoukset.html');
+    }
+
+    public static function luo_kokous() {
+        View::make('kokous.html');
     }
 
     public static function sandbox() {
