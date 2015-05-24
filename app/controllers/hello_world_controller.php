@@ -37,6 +37,10 @@ class HelloWorldController extends BaseController {
     public static function luo_kokous() {
         View::make('kokous.html');
     }
+    
+    public static function maksut() {
+        View::make('maksut.html');
+    }
 
     public static function sandbox() {
         // Testaa koodiasi täällä

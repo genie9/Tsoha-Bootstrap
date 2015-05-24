@@ -1,7 +1,7 @@
 {% extends "hallinta_base.html" %}
 {% block content %}
 
-<h2>Luo tai muokkaa kokous</h2>
+<h3>Luo tai muokkaa kokous</h3>
 
 <form>
     <div class="form-group">
@@ -21,41 +21,21 @@
                 <label>Kokoustyyppi</label>
             </div>
 
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Yhdistyksen kokous</label>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Yhdistyksen kokous</label>
             </div>
 
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Hallituksen kokous</label>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Hallituksen kokous</label>
             </div>
 
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Vuosikokous</label>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Vuosikokous</label>
             </div>
         </div>
 
         <div class="col-sm-4">
-            <!-- Trigger the modal with a button -->
             <button type="button" class="btn btn-default btn-sm" id="myBtn">Valitse osallistujat</button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <div class="modal-body">
-                                <div class="checkbox">
-                                    <label>Kira Kallio<input type="checkbox"></label>
-                                    <label>Himo Kiipeilijä<input type="checkbox"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <input type="text" class="form-control" value=""/>
         </div>
     </div>
@@ -82,16 +62,10 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-3" style="margin-top: 20px">
+        <div class="col-md-4" style="margin-top: 20px">
+            <a href="maksut" class="btn btn-danger">Uudet jäsenmaksut</a>
             <button type="submit" class="btn btn-primary">Tallenna</button>
         </div>
     </div>
 </form>
-<script>
-    $(document).ready(function () {
-        $("#myBtn").click(function () {
-            $("#myModal").modal();
-        });
-    });
-</script>
 {% endblock %}

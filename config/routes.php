@@ -36,6 +36,9 @@ $routes->get('/hallinta/kokous', function() {
     HelloWorldController::luo_kokous();
 });
 
+$routes->get('/hallinta/maksut', function() {
+    HelloWorldController::maksut();
+});
 
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
