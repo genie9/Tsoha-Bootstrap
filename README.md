@@ -7,6 +7,8 @@ Sovellus kehitetään Kirkkonummen seudun kiipeilijät ry:lle (koodinimi Kisky) 
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://evly.users.cs.helsinki.fi/kisky/)
+Sovelluksessa tällä hetkellä pääsee liikkumaan näkymien välillä.
+
 * [Linkki dokumentaatiooni](https://docs.google.com/document/d/1jf1lrgJPD2W91Zcf93h8SzKI2unxPkn0C3lFbOkwTTA/edit?usp=sharing)
 
 

@@ -63,9 +63,54 @@
 
     <div class="form-group">
         <div class="col-md-4" style="margin-top: 20px">
-            <a href="maksut" class="btn btn-danger">Uudet jäsenmaksut</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                Uudet Jäsenmaksut
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">Uudet jäsenmaksut</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <form>
+                                    <div class='col-lg-8'>
+                                        <div class='col-lg-4'>
+                                            <div><label>Vuosi</label>
+                                                <input type="text" class="form-control" value=""/></div>
+                                            <h4>Vuosimaksut:</h4>
+                                            <div><label>Aikuinen</label>
+                                                <input type="text" class="form-control" value=""/></div>
+                                            <div><label>Juniori</label>
+                                                <input type="text" class="form-control" value=""/></div>
+                                            <div><label>SKIL-jäsenyys</label>
+                                                <input type="text" class="form-control" value=""/></div>
+                                        </div>
+                                        <div class='col-lg-4'>
+                                            <div><label>Liittymismaksu</label>
+                                                <input type="text" class="form-control" value=""/></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <form>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Tallenna</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Tallenna</button>
         </div>
     </div>
 </form>
+
 {% endblock %}

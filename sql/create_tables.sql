@@ -9,7 +9,7 @@ CREATE TABLE Jasen (
     huoltaja varchar(50),
     laji text[],
     rek_aika timestamp,
-    status varchar(10) DEFAULT "Kesken",
+    status varchar(10) DEFAULT 'Kesken',
     skilstatus boolean DEFAULT false,
     seura varchar(20)
 );
