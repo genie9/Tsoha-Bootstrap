@@ -16,6 +16,8 @@ class HelloWorldController extends BaseController {
 
     public static function jasenet() {
         View::make('jasenet.html');
+//        $jasenet = Jasen::all();
+//        View::make('jasenet.html', array('jasenet' => $jasenet));
     }
 
     public static function profiili() {
@@ -39,9 +41,11 @@ class HelloWorldController extends BaseController {
     }
 
     public static function sandbox() {
-        // Testaa koodiasi täällä
-        View::make('helloworld.html');
-//        echo 'Hello World!';
+        $kallio = Jasen::find(1);
+        $jasenet = Jasen::all();
+// Kint-luokan dump-metodi tulostaa muuttujan arvon
+        Kint::dump($kallio);
+        Kint::dump($jasenet);
     }
 
 }
