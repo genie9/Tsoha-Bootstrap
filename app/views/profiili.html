@@ -8,9 +8,11 @@
 
 <!-- Painikkeet tähän -->
 <div class="row">
+{% if user_logged_in %}
     <div class="col-md-1">
         <a href="rekisterointi" class="btn btn-default">Muokkaa</a>
     </div>
+
     <div class="col-md-2">
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Näkyvyys
@@ -23,22 +25,24 @@
         </div>
     </div>
     <div class="col-md-1">
-        <a href="hallinta/jasenrekisteri" class="btn btn-success">VIP</a>
+        <a href="{{base_path}}/hallinta/jasenrekisteri" class="btn btn-success">VIP</a>
     </div>
 </div>
-
+{% endif %}
 <!-- Tiedot tulee listana tähän -->
 <!-- Omat profiililisäykset ym, ehkä kuva 
 <p></p>-->
 
 <ul class="prof-ul">
-    <li><strong>Nimi:</strong> Kira Kallio</li>
-    <li><strong>Syntymäaika:</strong> 11.11.2011 <input type="checkbox" style="display: inline; display: none; margin-left: 10px;"> </li>
-    <li><strong>Sähköposti:</strong> kira.kallio@gmail.com</li>
-    <li><strong>Osoite:</strong> Kalliokolo 12, 98765, Half Dome</li>
-    <li><strong>Puhelin:</strong> 555 4242</li>
-    <li><strong>Kiipeilylajit:</strong> tekninen, perinteinen</li>
+    <li><strong>Nimi:</strong> {{ jasen.nimi }} </li>
+    <li><strong>Syntymäaika:</strong> {{jasen.syntyma}} <input type="checkbox" style="display: inline; display: none; margin-left: 10px;"> </li>
+    <li><strong>Sähköposti:</strong> {{jasen.email}}</li>
+    <li><strong>Osoite:</strong> {{jasen.katuosoite}}, {{jasen.posti}}</li>
+    <li><strong>Puhelin:</strong> {{jasen.puhelin}}</li>
+    <li><strong>Kiipeilylajit:</strong>{{jasen.laji}}</li>
+    {% if jasen.status == true %}
     <li><strong>Status:</strong> Jäsen; 2015</li> <!--<label class="label label-danger">hakemus kesken</label>-->
+    {% endif %}
 </ul>
 
 {% endblock %}

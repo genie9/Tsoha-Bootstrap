@@ -1,6 +1,7 @@
 CREATE TABLE Jasen (
     id SERIAL PRIMARY KEY,
     nimi varchar(50) NOT NULL,
+    sala varchar(16) NOT NULL,
     email varchar(50) NOT NULL,
     katuosoite varchar(50),
     posti varchar(50),

@@ -25,7 +25,8 @@ class Jasen extends BaseModel {
                 'puhellin' => $row['puhelin'],
                 'syntyma' => $row['syntyma'],
                 'huoltaja' => $row['huoltaja'],
-                'laji' => $row['rek_aika'],
+                'laji' => $row['laji'],
+                'rek_aika' => $row['rek_aika'],
                 'status' => $row['status'],
                 'skilstatus' => $row['skilstatus'],
                 'seura' => $row['seura']));
@@ -37,8 +38,32 @@ class Jasen extends BaseModel {
         $query = DB::connection()->prepare('SELECT * FROM Jasen WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
+
+        if ($row) {
+            $jasen = new Jasen(array(
+                'id' => $row['id'],
+                'nimi' => $row['nimi'],
+                'email' => $row['email'],
+                'katuosoite' => $row['katuosoite'],
+                'posti' => $row['posti'],
+                'puhellin' => $row['puhelin'],
+                'syntyma' => $row['syntyma'],
+                'huoltaja' => $row['huoltaja'],
+                'laji' => $row['rek_aika'],
+                'status' => $row['status'],
+                'skilstatus' => $row['skilstatus'],
+                'seura' => $row['seura']));
+            return $jasen;
+        }
+        return NULL;
+    }
+
+    public static function authenticate($nimi, $sala) {
+        $query = DB::connection()->prepare('SELECT * FROM Jasen WHERE nimi = :nimi AND sala = :sala LIMIT 1'); 
+        $query->execute(array('nimi' => $nimi, 'sala' => $sala));
+        $row = $query->fetch();
         
-        if($row){
+        if ($row) {
             $jasen = new Jasen(array(
                 'id' => $row['id'],
                 'nimi' => $row['nimi'],

@@ -5,7 +5,7 @@ $routes->get('/', function() {
 });
 
 $routes->get('/jasenet', function() {
-    HelloWorldController::jasenet();
+    JasenController::jasenet();
 });
 
 $routes->get('/rekisterointi', function() {
@@ -13,11 +13,19 @@ $routes->get('/rekisterointi', function() {
 });
 
 $routes->get('/login', function() {
-    HelloWorldController::login();
+    KayttajatController::login();
 });
 
-$routes->get('/profiili', function() {
-    HelloWorldController::profiili();
+$routes->post('/login', function() {
+    KayttajatController::handle_login();
+});
+
+//$routes->get('/profiili/1', function() {
+//    HelloWorldController::profiili();
+//});
+
+$routes->get('/profiili/:id', function($id) {
+    JasenController::profiili($id);
 });
 
 $routes->get('/hallinta', function() {

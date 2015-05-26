@@ -2,24 +2,24 @@
 {% block content %}
 
 <h2>Kirjaudu sisään</h2>
+<br>
+<p style="font-style: italic">testikirjautumisen nimi: Kira Kallio, sala: kira</p>
+<br>
 
-<!-- Kaikki lomakkeen elementit form-tagin sisään -->
-<form>
+<form method="post" action="{{base_path}}/login">
     <div class="col-md-6">
-        <!-- Tekstikenttä käyttäjätunnukselle -->
+        
         <div class="form-group">
             <label>Käyttäjätunnus</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" name="nimi" value="{{nimi}}"/>
         </div>
-
-        <!-- Salasanakenttä salasanalle -->
+        
         <div class="form-group">
             <label>Salasana</label>
-            <input type="password" class="form-control"/>
+            <input type="password" class="form-control" name="sala"/>
         </div>
-
-        <a href="profiili" class="btn btn-primary">Temp login</a>
-        <!-- <button type="submit" class="btn btn-primary">Kirjaudu sisään</button> -->
+        
+        <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
     </div>
 </form>
 

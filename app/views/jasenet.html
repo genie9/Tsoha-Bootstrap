@@ -6,8 +6,9 @@
 
 <!-- -->
 <ul style="list-style-type:none">
-    <li><a href="profiili">Kira Kallio</a></li>
-    <li>Himo Kiipeilija</li>
+    {% for jasen in jasenet %}
+    <li><a href="{{base_path}}/profiili/{{jasen.id}}">{{jasen.nimi}}</a></li>
+    {% endfor %}
 </ul>
 
 {% endblock %}
