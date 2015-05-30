@@ -22,16 +22,18 @@
 
     <tbody>
       <!-- Jäsenten listaus -->
+      {% for kokous in kokoukset %}
       <tr>
-        <td>13.3.2015</td>
-        <td>18:00</td>
-        <td>Cave</td>
-        <td>Hallitus</td>
+        <td>{{kokous.pvm}}</td>
+        <td>{{kokous.aika}}</td>
+        <td>{{kokous.paikka}}</td>
+        <td>{{kokous.tyyppi}}</td>
         <td>Himo Kiipeilijä, Kira Kallio</td>
         <td>jokulinkki</td>
         <td>-</td>
         <th><a href="kokous" class="btn btn-warning btn-xs">Muokkaa</a></th>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 

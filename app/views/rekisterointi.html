@@ -8,45 +8,45 @@
     <h1>Muokkaa tietoja</h1>
 </div>
 
-<form>
+<form  method="post" action="{{base_path}}/rekisterointi">
     <div class="form-group">
         <div class="col-sm-6">
-            <label>Etunimi</label>
-            <input type="text" class="form-control" value="Kira"/>
+            <label>Nimi</label>
+            <input type="text" name="nimi" class="form-control" placeholder="Etu- ja sukunimi" required />
         </div>
         <div class="col-sm-6">
-            <label>Sukunimi</label>
-            <input type="text" class="form-control" value="Kallio"/>
+            <label>Sähköposti</label>
+            <input id="email" type="email" name="email" class="form-control" required onchange="document.getElementById('sala').value = document.getElementById('email').value;"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label>Syntymäaika</label>
-            <input type="text" class="form-control" value="11.11.2011"/>
+            <input type="text" name="syntyma" class="form-control" required />
         </div>
         <div class="col-sm-6">
-            <label>Sähköposti</label>
-            <input type="text" class="form-control" value="kira.kallio@gmail.com"/>
+            <label>Alaikäisen huoltaja</label>
+            <input type="text" name="huoltaja" class="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label>Katuosoite</label>
-            <input type="text" class="form-control" value="Kalliokolo 12"/>
+            <input type="text" name="katuosoite" class="form-control" value="Katuosoite 10"/>
         </div>
         <div class="col-sm-6">
             <label>Postinumero</label>
-            <input type="text" class="form-control" value="98765"/>
+            <input type="text" name="posti" class="form-control" value="01234 PAIKKA"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label>Puhelin</label>
-            <input type="text" class="form-control" value="555 4242"/>
+            <input type="number" name="puhelin" class="form-control" />
         </div>
         <div class="col-sm-6">
-            <label>Alaikäisen huoltaja</label>
-            <input type="text" class="form-control" value=""/>
+            <label>Rinnakkainen seura</label>
+            <input type="text" name="seura" class="form-control" />
         </div>
     </div>
     <div class="form-group">
@@ -58,7 +58,7 @@
         <div class="checkbox">
             <div class="col-sm-2">
                 <label>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="laji[]" value="perinteinen"/>
                     Perinteinen
                 </label>
             </div>
@@ -66,7 +66,7 @@
         <div class="checkbox">
             <div class="col-sm-2">
                 <label>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="laji[]"  value="tekninen"/>
                     Tekninen
                 </label>
             </div>
@@ -74,7 +74,7 @@
         <div class="checkbox">
             <div class="col-sm-2">
                 <label>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="laji[]" value="urheilu"/>
                     Urheilu
                 </label>
             </div>
@@ -82,7 +82,7 @@
         <div class="checkbox">
             <div class="col-sm-2">
                 <label>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="laji[]" value="jää"/>
                     Jää
                 </label>
             </div>
@@ -90,7 +90,7 @@
         <div class="checkbox">
             <div class="col-sm-3">
                 <label>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="laji[]" value="boulderointi"/>
                     Boulderointi
                 </label>
             </div>
@@ -107,17 +107,17 @@
                     </div>
                 </div>
                 <div class="col-md-11">
-                    <input type="text" class="form-control" value=""/>
+                    <input type="text" name="laji[]" class="form-control" value=""/>
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-12">
-            <label>Rinnakkainen seura</label>
-            <input type="text" class="form-control" value=""/>
-        </div>
-    </div>
+    
+    <!-- Automaattiset inputit -->
+    <input type="text" style="display:none" name="status" class="form-control" value="Kesken"/>
+    <input id="sala" style="display:none"  type="text" name="sala" class="form-control" />
+    <!---->
+    
     <div class="form-group">
         <div class="col-md-3" style="margin-top: 20px">
             <button type="submit" class="btn btn-primary">Tallenna</button>

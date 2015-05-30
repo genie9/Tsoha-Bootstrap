@@ -5,12 +5,14 @@
 
 <p style="font-style: italic"> tämä sivu näkyy kirjautuessa jäsenille<br>
     VIP-nappi näkyy vain hallituksen jäsenille, vie jäsenrekisteriin </p>
-
+<div class="alert alert-success">
+    {{message}}
+</div>
 <!-- Painikkeet tähän -->
 <div class="row">
-{% if user_logged_in %}
+    {% if user_logged_in %}
     <div class="col-md-1">
-        <a href="rekisterointi" class="btn btn-default">Muokkaa</a>
+        <a href="{{base_path}}/rekisterointi" class="btn btn-default">Muokkaa</a>
     </div>
 
     <div class="col-md-2">
@@ -34,14 +36,23 @@
 <p></p>-->
 
 <ul class="prof-ul">
-    <li><strong>Nimi:</strong> {{ jasen.nimi }} </li>
+    <li><strong>Nimi:</strong> {{jasen.nimi }} </li>
     <li><strong>Syntymäaika:</strong> {{jasen.syntyma}} <input type="checkbox" style="display: inline; display: none; margin-left: 10px;"> </li>
     <li><strong>Sähköposti:</strong> {{jasen.email}}</li>
     <li><strong>Osoite:</strong> {{jasen.katuosoite}}, {{jasen.posti}}</li>
     <li><strong>Puhelin:</strong> {{jasen.puhelin}}</li>
     <li><strong>Kiipeilylajit:</strong>{{jasen.laji}}</li>
-    {% if jasen.status == true %}
-    <li><strong>Status:</strong> Jäsen; 2015</li> <!--<label class="label label-danger">hakemus kesken</label>-->
+
+    {% if jasen.status == 'true' or jasen.status == 'hallitus' %}
+    <li><strong>Status:</strong> Jäsen; 2015</li> 
+    {% endif %}
+
+    {% if jasen.status == 'Kesken' %}
+    <li><strong>Status:</strong> Hakemuksesi odottaa hyväksymistä</li>
+    {% endif %}
+
+    {% if jasen.status == 'maksu' %}
+    <li><strong>Status:</strong> Jäsenmaksu vuodele "year now" maksamatta</li>
     {% endif %}
 </ul>
 

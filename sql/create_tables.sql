@@ -1,18 +1,18 @@
-CREATE TABLE Jasen (
+    CREATE TABLE Jasen (
     id SERIAL PRIMARY KEY,
     nimi varchar(50) NOT NULL,
-    sala varchar(16) NOT NULL,
+    sala varchar(50) NOT NULL,
     email varchar(50) NOT NULL,
     katuosoite varchar(50),
     posti varchar(50),
-    puhelin integer,
+    puhelin varchar(50),
     syntyma date NOT NULL,
     huoltaja varchar(50),
     laji text[],
     rek_aika timestamp,
     status varchar(10) DEFAULT 'Kesken',
     skilstatus boolean DEFAULT false,
-    seura varchar(20)
+    seura varchar(50)
 );
 
 CREATE TABLE Hallitus (
@@ -23,6 +23,7 @@ CREATE TABLE Hallitus (
 CREATE TABLE Kokous (
     pvm date PRIMARY KEY NOT NULL,
     aika varchar(5) NOT NULL,
+    paikka varchar(25),
     nimi varchar(50),
     tyyppi varchar(20) NOT NULL,
     muuta varchar(200),

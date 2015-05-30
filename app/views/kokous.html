@@ -3,18 +3,20 @@
 
 <h3>Luo tai muokkaa kokous</h3>
 
-<form>
+<form method="post" action="{{base_path}}/hallinta/kokous">
     <div class="form-group">
         <div class="col-sm-4">
+
             <label>Päivä</label>
-            <input type="text" class="form-control" value="16.4.2015"/>
+            <input type="text" id="pvm" name="pvm" class="form-control" required />
 
             <label>Aika</label>
-            <input type="text" class="form-control" value="19:00"/>
+            <input type="text" name="aika" class="form-control" required />
 
             <label>Paikka</label>
-            <input type="text" class="form-control" value="Paikallinen pizzeria"/>
+            <input type="text" name="paikka" class="form-control" required />
         </div>
+
 
         <div class="col-sm-2">
             <div>
@@ -22,21 +24,57 @@
             </div>
 
             <div class="radio">
-                <label><input type="radio" name="optradio">Yhdistyksen kokous</label>
+                <label><input type="radio" name="tyyppi"value="Yhdistyksen kokous">Yhdistyksen kokous</label>
             </div>
 
             <div class="radio">
-                <label><input type="radio" name="optradio">Hallituksen kokous</label>
+                <label><input type="radio" name="tyyppi" value="Hallituksen kokous">Hallituksen kokous</label>
             </div>
 
             <div class="radio">
-                <label><input type="radio" name="optradio">Vuosikokous</label>
+                <label><input type="radio" name="tyyppi" value="Vuosikokous">Vuosikokous</label>
             </div>
+
         </div>
 
         <div class="col-sm-4">
-            <button type="button" class="btn btn-default btn-sm" id="myBtn">Valitse osallistujat</button>
-            <input type="text" class="form-control" value=""/>
+            <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm" id="myBtn" data-toggle="modal" data-target="#osallistujaModal">
+                Valitse osallistujat</button>
+            <!-- Modal -->
+            <div class="modal fade" id="osallistujaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" action="{{base_path}}/hallinta/kokous">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="gridSystemModalLabel">Valitse osallistujat</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% for jasen in jasenet %}
+                                <div class="container-fluid">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="osallistuja"  value="{{jasen.id}}"/>
+                                            {{jasen.nimi}}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Tallenna</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--modal osallistujat end-->
+
+            <textarea rows="7" type="text" class="form-control" value=""></textarea>
         </div>
     </div>
 
@@ -62,55 +100,62 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-4" style="margin-top: 20px">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-                Uudet Jäsenmaksut
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        <div class="col-md-3" style="margin-top: 20px">
+            <button type="submit" class="btn btn-primary">Tallenna</button>
+        </div>
+    </div>
+</form>
+<div class="form-group">
+    <div class="col-md-4" style="margin-top: 20px">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+            Uudet Jäsenmaksut
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{{base_path}}/hallinta/kokous">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="gridSystemModalLabel">Uudet jäsenmaksut</h4>
                         </div>
                         <div class="modal-body">
+
                             <div class="container-fluid">
-                                <form>
-                                    <div class='col-lg-8'>
-                                        <div class='col-lg-4'>
-                                            <div><label>Vuosi</label>
-                                                <input type="text" class="form-control" value=""/></div>
-                                            <h4>Vuosimaksut:</h4>
-                                            <div><label>Aikuinen</label>
-                                                <input type="text" class="form-control" value=""/></div>
-                                            <div><label>Juniori</label>
-                                                <input type="text" class="form-control" value=""/></div>
-                                            <div><label>SKIL-jäsenyys</label>
-                                                <input type="text" class="form-control" value=""/></div>
-                                        </div>
-                                        <div class='col-lg-4'>
-                                            <div><label>Liittymismaksu</label>
-                                                <input type="text" class="form-control" value=""/></div>
-                                        </div>
+
+                                <div class='col-lg-8'>
+                                    <div class='col-lg-4'>
+                                        <div><label>Vuosi</label>
+                                            <input type="text" class="form-control" value=""/></div>
+                                        <h4>Vuosimaksut:</h4>
+                                        <div><label>Aikuinen</label>
+                                            <input type="text" class="form-control" value=""/></div>
+                                        <div><label>Juniori</label>
+                                            <input type="text" class="form-control" value=""/></div>
+                                        <div><label>SKIL-jäsenyys</label>
+                                            <input type="text" class="form-control" value=""/></div>
                                     </div>
-                                </form>
+                                    <div class='col-lg-4'>
+                                        <div><label>Liittymismaksu</label>
+                                            <input type="text" class="form-control" value=""/></div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <form>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Tallenna</button>
-                            </form>
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Tallenna</button>
+
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Tallenna</button>
         </div>
     </div>
-</form>
+</div>
 
 {% endblock %}

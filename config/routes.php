@@ -8,8 +8,12 @@ $routes->get('/jasenet', function() {
     JasenController::jasenet();
 });
 
+$routes->post('/rekisterointi', function() {
+    KayttajatController::rek_uusi();
+});
+
 $routes->get('/rekisterointi', function() {
-    HelloWorldController::rek();
+    KayttajatController::rek_lomake();
 });
 
 $routes->get('/login', function() {
@@ -20,9 +24,9 @@ $routes->post('/login', function() {
     KayttajatController::handle_login();
 });
 
-//$routes->get('/profiili/1', function() {
-//    HelloWorldController::profiili();
-//});
+$routes->post('/jasenrekisteri', function($id) {
+    KayttajatController::delete($id);
+});
 
 $routes->get('/profiili/:id', function($id) {
     JasenController::profiili($id);
@@ -33,15 +37,19 @@ $routes->get('/hallinta', function() {
 });
 
 $routes->get('/hallinta/jasenrekisteri', function() {
-    HelloWorldController::jasenrekisteri();
+    JasenController::jasenrekisteri();
 });
 
 $routes->get('/hallinta/kokoukset', function() {
-    HelloWorldController::kokoukset();
+    KokouksetController::kokoukset();
 });
 
 $routes->get('/hallinta/kokous', function() {
-    HelloWorldController::luo_kokous();
+    KokouksetController::kokous_lomake();
+});
+
+$routes->post('/hallinta/kokous', function() {
+    KokouksetController::kokous_uusi();
 });
 
 $routes->get('/hiekkalaatikko', function() {

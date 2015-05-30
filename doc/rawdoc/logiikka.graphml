@@ -31,6 +31,7 @@
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="" use3DEffect="true">
             <y:AttributeLabel>&lt;&lt;key&gt;&gt;-id:int
 -nimi:String
+-sala:String
 -rooli:String
 -email:String
 -katuosoite:String

@@ -6,9 +6,9 @@ class HelloWorldController extends BaseController {
         View::make('base.html');
     }
 
-    public static function rek() {
-        View::make('rekisterointi.html');
-    }
+//    public static function rek() {
+//        View::make('rekisterointi.html');
+//    }
 
 //    public static function login() {
 //        View::make('login.html');
@@ -20,25 +20,25 @@ class HelloWorldController extends BaseController {
 //        View::make('jasenet.html', array('jasenet' => $jasenet));
 //    }
 
-    public static function profiili() {
-        View::make('profiili.html');
-    }
+//    public static function profiili() {
+//        View::make('profiili.html');
+//    }
 
     public static function hallinta() {
         View::make('hallinta_base.html');
     }
 
-    public static function jasenrekisteri() {
-        View::make('jasenrekisteri.html');
-    }
+//    public static function jasenrekisteri() {
+//        View::make('jasenrekisteri.html');
+//    }
 
-    public static function kokoukset() {
-        View::make('kokoukset.html');
-    }
-
-    public static function luo_kokous() {
-        View::make('kokous.html');
-    }
+//    public static function kokoukset() {
+//        View::make('kokoukset.html');
+//    }
+//
+//    public static function luo_kokous() {
+//        View::make('kokous.html');
+//    }
     
     public static function sandbox() {
         $kallio = Jasen::find(1);
