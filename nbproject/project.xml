@@ -8,6 +8,19 @@
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>endblock</word>
             <word>endfor</word>
+            <word>endif</word>
+            <word>html</word>
+            <word>jasen</word>
+            <word>Jäsenprofiili</word>
+            <word>Katuosoite</word>
+            <word>Kiipeilylaji</word>
+            <word>Nimi</word>
+            <word>Postinumero</word>
+            <word>Puhelin</word>
+            <word>Päivitä</word>
+            <word>Salasana</word>
+            <word>seura</word>
+            <word>Sähköposti</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

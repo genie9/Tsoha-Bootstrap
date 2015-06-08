@@ -24,8 +24,16 @@ $routes->post('/login', function() {
     KayttajatController::handle_login();
 });
 
-$routes->post('/jasenrekisteri', function($id) {
-    KayttajatController::delete($id);
+$routes->get('/muokkaa_jasen/:id', function($id) {
+    JasenController::jasen_muokkaa($id);
+});
+
+$routes->post('/jasenrekisteri/hyvaksy/:id', function($id) {
+    JasenController::hyvaksy($id);
+});
+
+$routes->post('/jasenrekisteri/poista/:id', function($id) {
+    JasenController::delete($id);
 });
 
 $routes->get('/profiili/:id', function($id) {

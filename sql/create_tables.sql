@@ -1,8 +1,8 @@
-    CREATE TABLE Jasen (
+CREATE TABLE Jasen (
     id SERIAL PRIMARY KEY,
     nimi varchar(50) NOT NULL,
     sala varchar(50) NOT NULL,
-    email varchar(50) NOT NULL,
+    email varchar(50) NOT NULL UNIQUE,
     katuosoite varchar(50),
     posti varchar(50),
     puhelin varchar(50),
@@ -16,33 +16,34 @@
 );
 
 CREATE TABLE Hallitus (
-    /*id SERIAL PRIMARY KEY,*/
-    vuosi integer PRIMARY KEY NOT NULL
+    id SERIAL PRIMARY KEY,
+    vuosi integer NOT NULL UNIQUE
 );
 
 CREATE TABLE Kokous (
-    pvm date PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY,
+    pvm date NOT NULL,
     aika varchar(5) NOT NULL,
     paikka varchar(25),
     nimi varchar(50),
     tyyppi varchar(20) NOT NULL,
     muuta varchar(200),
-    hal_vuosi integer, 
-    FOREIGN KEY (hal_vuosi) REFERENCES Hallitus
+    hal_id integer, 
+    FOREIGN KEY (hal_id) REFERENCES Hallitus
 );
 
 CREATE TABLE Hallitus_has_Jasen (
-    hal_vuosi integer NOT NULL,
+    hal_id integer NOT NULL,
     jasen_id integer NOT NULL,
-    PRIMARY KEY (hal_vuosi, jasen_id),
-    FOREIGN KEY (hal_vuosi) REFERENCES Hallitus
+    PRIMARY KEY (hal_id, jasen_id),
+    FOREIGN KEY (hal_id) REFERENCES Hallitus
 );
 
 CREATE TABLE Kokous_has_Jasen (
-    kokous_pvm date NOT NULL,
+    kokous_id integer NOT NULL,
     jasen_id integer NOT NULL,
-    PRIMARY KEY (kokous_pvm, jasen_id),
-    FOREIGN KEY (kokous_pvm) REFERENCES Kokous
+    PRIMARY KEY (kokous_id, jasen_id),
+    FOREIGN KEY (kokous_id) REFERENCES Kokous
 );
 
 CREATE TABLE Dokumentti (
@@ -50,13 +51,13 @@ CREATE TABLE Dokumentti (
     nimi varchar(50) NOT NULL,
     pvm date NOT NULL,
     url text NOT NULL,
-    kokous_pvm date NOT NULL,
-    FOREIGN KEY (kokous_pvm) REFERENCES Kokous
+    kokous_id integer NOT NULL,
+    FOREIGN KEY (kokous_id) REFERENCES Kokous
 );
 
 CREATE TABLE Jasenmaksu (
     id SERIAL PRIMARY KEY,
-    vuosi date NOT NULL,
+    vuosi date NOT NULL UNIQUE,
     maara_lapsi numeric NOT NULL,
     maara_aikuinen numeric NOT NULL,
     maara_skil numeric NOT NULL

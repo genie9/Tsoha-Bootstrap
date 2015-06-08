@@ -2,39 +2,47 @@
 {% block content %}
 
 <h2>Kokoukset ja dokumentit</h2>
-
-  <p>
+<div class="alert alert-success">
+  {{message}}
+</div>
+<p>
     <a href="kokous" class="btn btn-primary">Lisää kokous</a>
-  </p>
+</p>
 
-  <table class="table table-striped "><!--table-bordered-->
+<table class="table table-striped "><!--table-bordered-->
     <thead>
-      <tr>
-        <th>Päivämäärä</th>
-        <th>Kelloaika</th>
-        <th>Paikka</th>
-        <th>Kokouksen tyyppi</th>
-        <th>Osallistujat</th>
-        <th>Dokumentit</th>
-        <th>Muuta</th>
-      </tr>
+        <tr>
+            <th>Päivämäärä</th>
+            <th>Kelloaika</th>
+            <th>Paikka</th>
+            <th>Kokouksen tyyppi</th>
+            <th>Osallistujat</th>
+            <th>Dokumentit</th>
+            <th>Muuta</th>
+        </tr>
     </thead>
 
     <tbody>
-      <!-- Jäsenten listaus -->
-      {% for kokous in kokoukset %}
-      <tr>
-        <td>{{kokous.pvm}}</td>
-        <td>{{kokous.aika}}</td>
-        <td>{{kokous.paikka}}</td>
-        <td>{{kokous.tyyppi}}</td>
-        <td>Himo Kiipeilijä, Kira Kallio</td>
-        <td>jokulinkki</td>
-        <td>-</td>
-        <th><a href="kokous" class="btn btn-warning btn-xs">Muokkaa</a></th>
-      </tr>
-      {% endfor %}
+        <!-- Jäsenten listaus -->
+        {% for kokous in kokoukset %}
+        <tr>
+            <td>{{kokous.pvm}}</td>
+            <td>{{kokous.aika}}</td>
+            <td>{{kokous.paikka}}</td>
+            <td>{{kokous.tyyppi}}</td>
+            <td>
+                {% for osallistuja in osallistujat %}
+                    {% if (osallistuja.pvm) == (kokous.pvm) %}
+                            {{osallistuja.nimi}} 
+                    {% endif %}
+                {% endfor %}
+            </td>
+            <td>jokulinkki</td>
+            <td>-</td>
+            <th><a href="kokous" class="btn btn-warning btn-xs">Muokkaa</a></th>
+        </tr>
+        {% endfor %}
     </tbody>
-  </table>
+</table>
 
 {% endblock %}

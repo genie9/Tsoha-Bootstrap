@@ -3,11 +3,23 @@
 
 <h2>Jäsenluettelo</h2>
 
+{% if message1 %}
+<div class="alert alert-success">
+    {{message1}}
+</div>
+{% endif %}
+
+{% if message2 %}
+<div class="alert alert-danger">
+    {{message2}}
+</div>
+{% endif %}
+<!--
 <p>
     <a href="/kisky/rekisterointi" class="btn btn-primary">Lisää jäsen</a>
 </p>
-
-<table class="table table-striped "><!--table-bordered-->
+-->
+<table class="table table-striped ">
     <thead>
         <tr>
             <th>Nimi</th>
@@ -29,18 +41,23 @@
         <tr>
             <td>{{jasen.nimi}}</td>
             <td>{{jasen.syntyma}}</td>
+            
             {% if jasen.status == 'true' %}
             <td><label class="label label-success">jäsen</label></td>
             {% endif %}
+            
             {% if jasen.status == 'hallitus' %}
             <td><label class="label label-success">hallitus</label></td>
             {% endif %}
+            
             {% if jasen.status == 'Kesken' %}
             <td><label class="label label-warning">kesken</label></td>
             {% endif %}
+            
             {% if jasen.status == 'maksu' %}
             <td><label class="label label-warning">maksu!</label></td>
             {% endif %}
+            
             <td>{{jasen.email}}</td>
             <td>{{jasen.katuosoite}}</td>
             <td>{{jasen.posti}}</td>
@@ -48,14 +65,23 @@
             <td>{{jasen.huoltaja}}</td>
             <td>{{jasen.seura}}</td>
             <td>{{jasen.laji}}</td>
-            <!--aktiivinen ainostaan statuksen ollessa 'kesken'; toteutetaan myöhemmin-->
+            
+            <!--aktiiviset ainostaan statuksen ollessa 'kesken' tai 'maksu'-->
             {% if jasen.status == 'Kesken' or jasen.status ==  'Maksu' %}  
-            <th><a class="btn btn-warning btn-xs">Hyväksy</a></th>
+            <th>
+                <form method="post" action="{{base_path}}/jasenrekisteri/hyvaksy/{{jasen.id}}" style="display: inline-block;">
+                    <button type="submit" class="btn btn-warning btn-xs">Hyväksy</button>
+                </form>
+            </th>
             {% endif %}
-    <form method="post" action="{{base_path}}/jasenrekisteri/" >
-        <th><a type="submit" class="btn btn-warning btn-xs">Poista</a></th>
-    </form>
-</tr>
+            {% if jasen.status == 'Kesken' %}
+            <th>
+                <form method="post" action="{{base_path}}/jasenrekisteri/poista/{{jasen.id}}" style="display: inline-block;">
+                    <button type="submit" class="btn btn-danger btn-xs">Poista</button>
+                </form>
+            </th>
+            {% endif %}
+        </tr>
 {% endfor %}
 </tbody>
 </table>

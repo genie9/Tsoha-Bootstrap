@@ -4,7 +4,8 @@ class KokouksetController extends BaseController {
 
     public static function kokoukset() {
         $kokoukset = Kokous::all();
-        View::make('kokoukset.html', array('kokoukset' => $kokoukset));
+        $osallistujat = Osallistuja::all();
+        View::make('kokoukset.html', array('kokoukset' => $kokoukset, 'osallistujat' => $osallistujat));
     }
 
     public static function kokous_lomake() {
@@ -18,10 +19,13 @@ class KokouksetController extends BaseController {
             'pvm' => $params['pvm'],
             'aika' => $params['aika'],
             'paikka' => $params['paikka'],
-            'tyyppi' => $params['tyyppi']
+            'tyyppi' => $params['tyyppi'],
+            'kokous_pvm' => $params['pvm'],
+            'jasen_id' => $params['osallistuja']
         ));
         $kokous->save();
-        Redirect::to('/kokoukset', array('message' => 'Kokous on lisätty!'));
+
+        Redirect::to('/hallinta/kokoukset', array('message' => 'Kokous on lisätty!'));
     }
 
 }

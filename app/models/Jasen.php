@@ -5,8 +5,10 @@ class Jasen extends BaseModel {
     public $id, $sala, $nimi, $email, $katuosoite, $posti,
             $puhelin, $syntyma, $huoltaja, $laji, $rek_aika, $status, $skilstatus, $seura;
 
-    public function construct($attributes) {
-        parent::construct($attributes);
+    public function __construct($attributes) {
+        parent::__construct($attributes);
+        $this->validators = array("validoi_nimi", "validoi_sala", "validoi_email",
+            "validoi_syntyma", "validoi_ika_huoltaja", "validoi_posti");
     }
 
     public static function all() {
@@ -81,7 +83,7 @@ class Jasen extends BaseModel {
             if ($value == '') {
                 continue;
             }
-            $laji .= '"'.$value . '",';
+            $laji .= '"' . $value . '",';
         }
         $laji = rtrim($laji, ',');
         $laji .= "}";
@@ -98,12 +100,8 @@ class Jasen extends BaseModel {
             'seura' => $this->seura,
             'laji' => $laji));
         $row = $query->fetch();
-        Kint::trace();
-        Kint::dump($row);
         $this->id = $row['id'];
     }
-
-    /* 'laji' => $this->laji, */
 
     public static function authenticate($nimi, $sala) {
         $query = DB::connection()->prepare('SELECT * FROM Jasen WHERE nimi = :nimi AND sala = :sala LIMIT 1');
@@ -118,7 +116,7 @@ class Jasen extends BaseModel {
                 'email' => $row['email'],
                 'katuosoite' => $row['katuosoite'],
                 'posti' => $row['posti'],
-                'puhellin' => $row['puhelin'],
+                'puhelin' => $row['puhelin'],
                 'syntyma' => $row['syntyma'],
                 'huoltaja' => $row['huoltaja'],
                 'laji' => $row['laji'],
@@ -130,18 +128,88 @@ class Jasen extends BaseModel {
         return NULL;
     }
 
-    public function destroy() {
-        $query = DB::connection()->prepare('DELETE FROM Jasen WHERE id = :id LIMIT 1');
-        $query->execute(array('id' => $id));
-        $row = $query->fetch();
-
-        if ($row) {
-            $jasen = new Jasen(array(
-                'id' => $row['id'],
-                'nimi' => $row['nimi']));
-            return $jasen;
+    public function hyvaksy($id) {
+        $jasen = $this->find($id);
+        if ($jasen && ($jasen->status === 'Kesken' || $jasen->status === 'maksu')) {
+            $query = DB::connection()->prepare('UPDATE Jasen SET status=:status WHERE id=:id');
+            $query->execute(array('id' => $id, 'status' => 'true'));
+            return TRUE;
         }
-        return NULL;
+        return FALSE;
+    }
+
+    public function poista($id) {
+        $jasen = $this->find($id);
+        if ($jasen && $jasen->status === 'Kesken') {
+            $query = DB::connection()->prepare('DELETE FROM Jasen WHERE id = :id');
+            $query->execute(array('id' => $id));
+        }
+        if ($this->find($id) != NULL) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    public function validoi_nimi() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->nimi);
+        if (!strpos($this->nimi, ' ')) {
+            $errors[] = 'Etu- tai sukunimesi puuttuu';
+        }
+        return $errors;
+    }
+
+    public function validoi_sala() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->sala);
+        $errors[] = $this->string_length_validator($this->sala, 4);
+        return $errors;
+    }
+
+    public function validoi_email() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->email);
+        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Tarkista sähköposti';
+        }
+        return $errors;
+    }
+
+    public function validoi_syntyma() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->syntyma);
+        $errors[] = $this->date_validator($this->syntyma);
+        return $errors;
+    }
+
+    public function validoi_ika_huoltaja() {
+        $errors = array();
+
+        $day = date("d-m-Y");
+        $today = new DateTime($day);
+
+        if ($this->date_validator($this->syntyma) == '') {
+            $bday = new DateTime($this->syntyma);
+
+            $diff = $today->diff($bday);
+            $age = $diff->y;
+
+            if ($age < 18) {
+                $errors[] = $this->string_notempty_validator($this->huoltaja);
+                if (!strpos($this->huoltaja, ' ')) {
+                    $errors[] = 'Ilmoita huoltajan etu- sekä sukunimi ';
+                }
+            }
+        }
+        return $errors;
+    }
+
+    public function validoi_posti() {
+        $errors = array();
+        if ($this->posti && !preg_match("/^\d{5}/", $this->syntyma)) {
+            $errors[] = 'Muistitko syöttää postinumeron';
+        }
+        return $errors;
     }
 
 }

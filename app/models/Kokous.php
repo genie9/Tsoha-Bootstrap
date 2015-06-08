@@ -2,7 +2,7 @@
 
 class Kokous extends BaseModel {
 
-    public $pvm, $aika, $paikka, $tyyppi, $muuta, $hal_vuosi;
+    public $pvm, $aika, $paikka, $tyyppi, $muuta, $hal_id, $jasen_id;
 
     public function construct($attributes) {
         parent::construct($attributes);
@@ -13,7 +13,7 @@ class Kokous extends BaseModel {
         $query->execute();
         $rows = $query->fetchAll();
         $kokoukset = array();
-        
+
         foreach ($rows as $row) {
             $kokoukset[] = new Kokous(array(
                 'pvm' => $row['pvm'],
@@ -21,7 +21,7 @@ class Kokous extends BaseModel {
                 'paikka' => $row['paikka'],
                 'tyyppi' => $row['tyyppi'],
                 'muuta' => $row['muuta'],
-                'hal_vuosi' => $row['hal_vuosi']));
+                'hal_id' => $row['hal_id']));
         }
         return $kokoukset;
     }
@@ -38,7 +38,7 @@ class Kokous extends BaseModel {
                 'paikka' => $row['paikka'],
                 'tyyppi' => $row['tyyppi'],
                 'muuta' => $row['muuta'],
-                'hal_vuosi' => $row['hal_vuosi']));
+                'hal_id' => $row['hal_id']));
             return $kokous;
         }
         return NULL;
@@ -46,10 +46,20 @@ class Kokous extends BaseModel {
 
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Kokous (pvm, aika, paikka, tyyppi) 
-            VALUES (:pvm, :aika, :paikka, :tyyppi)');
-        $query->execute(array('pvm' => $this->pvm, 'aika' => $this->aika, 'paikka' => $this->paikka, 
+            VALUES (:pvm, :aika, :paikka, :tyyppi) RETURNING id');
+        $query->execute(array(
+            'pvm' => $this->pvm, 
+            'aika' => $this->aika, 
+            'paikka' => $this->paikka,
             'tyyppi' => $this->tyyppi));
-//        $query->fetch();
+        
+        $row = $query->fetch();
+        $this->id = $row['id'];
+                
+        $osallistuja = new Osallistuja(array(
+
+        ));
+        $osallistuja->save($this->id, $this->jasen_id);
     }
 
 }

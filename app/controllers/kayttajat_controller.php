@@ -7,10 +7,9 @@ class KayttajatController extends BaseController {
     }
 
     public static function rek_uusi() {
-        // POST-pyynnön muuttujat sijaitsevat $_POST nimisessä assosiaatiolistassa
         $params = $_POST;
-        // Alustetaan uusi Jasen-luokan olion käyttäjän syöttämillä arvoilla
-        $jasen = new Jasen(array(
+
+        $attributes = (array(
             'nimi' => $params['nimi'],
             'email' => $params['email'],
             'sala' => $params['sala'],
@@ -22,19 +21,18 @@ class KayttajatController extends BaseController {
             'laji' => $params['laji'],
             'seura' => $params['seura']
         ));
+        $jasen = new Jasen($attributes);
+        $errors = $jasen->errors();
 
-        // Kutsutaan alustamamme olion save metodia, joka tallentaa olion tietokantaan
-        $jasen->save();
-
-        // Ohjataan käyttäjä lisäyksen jälkeen omalle profiilisivulle
-        Redirect::to('/profiili/' . $jasen->id, array('message' => print_r($_POST, TRUE)));
+        if (count($errors) == 0) {
+            $jasen->save();
+            Redirect::to('/profiili/' . $jasen->id, array('message' => 'Hakemuksesi käsitellään seuraavassa hallituksen kokouksessa'));
+        } else {
+            View::make('rekisterointi.html', array('errors' => $errors, 'attributes' => $attributes));
+        }
     }
 
-    public static function delete($id) {
-        $jasen = new Jasen(array('id' => $id));
-        $jasen->destroy();
-        Redirect::to('/jasenrekisteri', array('message' => 'Henkilö on poistettu onnistuneesti!'));
-    }
+    
 
     public static function login() {
         View::make('login.html');
