@@ -6,6 +6,12 @@
 <p style="font-style: italic">salasana on rekisteröitymisessä käytetty emaili</p>
 <br>
 
+{% if message %}
+<div class="alert alert-danger">
+    {{message}}
+</div>
+{% endif %}
+
 <form method="post" action="{{base_path}}/login">
     <div class="col-md-6">
         

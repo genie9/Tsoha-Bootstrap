@@ -2,11 +2,21 @@
 {% block content %}
 
 <h2>Kokoukset ja dokumentit</h2>
+
+{% if message1 %}
 <div class="alert alert-success">
-  {{message}}
+    {{message1}}
 </div>
+{% endif %}
+
+{% if message2 %}
+<div class="alert alert-danger">
+    {{message2}}
+</div>
+{% endif %}
+
 <p>
-    <a href="kokous" class="btn btn-primary">Lisää kokous</a>
+    <a href="{{base_path}}/hallinta/kokous" class="btn btn-primary">Lisää kokous</a>
 </p>
 
 <table class="table table-striped "><!--table-bordered-->
@@ -32,14 +42,27 @@
             <td>{{kokous.tyyppi}}</td>
             <td>
                 {% for osallistuja in osallistujat %}
-                    {% if (osallistuja.pvm) == (kokous.pvm) %}
-                            {{osallistuja.nimi}} 
-                    {% endif %}
+                {% if kokous.kokous_id == osallistuja.kokous_id %}
+                    {{osallistuja.nimi}} 
+                {% endif %}
                 {% endfor %}
             </td>
             <td>jokulinkki</td>
             <td>-</td>
-            <th><a href="kokous" class="btn btn-warning btn-xs">Muokkaa</a></th>
+
+            <th>
+                <form method="post" action="{{base_path}}/hallinta/kokoukset/muokkaa/{{kokous.kokous_id}}" style="display: inline-block;">
+                    <button type="submit" class="btn btn-warning btn-xs">Muokkaa</button>
+                </form>
+            </th>
+
+            {% if kokous.jasenet_id is empty %} 
+            <th>
+                <form method="post" action="{{base_path}}/hallinta/kokoukset/poista/{{kokous.kokous_id}}" style="display: inline-block;">
+                    <button type="submit" class="btn btn-danger btn-xs">Poista</button>
+                </form>
+            </th>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

@@ -43,7 +43,10 @@
                         <li><a href="{{base_path}}/hallinta/kokoukset">Kokoukset</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{base_path}}"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu ulos</a></li>
+                        <li style="padding: 15px 15px"><span class="glyphicon glyphicon-heart"></span> {{user_logged_in.nimi}}</li>
+                        <form class="navbar-form navbar-right" method="post" action="{{base_path}}/logout">
+                            <button type="submit" class="btn btn-link"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu ulos</button>
+                        </form>
                     </ul>
                 </div>
             </div>

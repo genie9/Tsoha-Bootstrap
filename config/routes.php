@@ -24,20 +24,28 @@ $routes->post('/login', function() {
     KayttajatController::handle_login();
 });
 
-$routes->get('/muokkaa_jasen/:id', function($id) {
-    JasenController::jasen_muokkaa($id);
+$routes->post('/logout', function(){
+    KayttajatController::logout();
 });
 
-$routes->post('/jasenrekisteri/hyvaksy/:id', function($id) {
-    JasenController::hyvaksy($id);
+$routes->post('/update/:jasen_id', function($jasen_id) {
+    JasenController::paivita($jasen_id);
 });
 
-$routes->post('/jasenrekisteri/poista/:id', function($id) {
-    JasenController::delete($id);
+$routes->post('/muokkaa_jasen/:jasen_id', function($jasen_id) {
+    JasenController::muokkaa_jasen($jasen_id);
 });
 
-$routes->get('/profiili/:id', function($id) {
-    JasenController::profiili($id);
+$routes->post('/jasenrekisteri/hyvaksy/:jasen_id', function($jasen_id) {
+    JasenController::hyvaksy($jasen_id);
+});
+
+$routes->post('/jasenrekisteri/poista/:jasen_id', function($jasen_id) {
+    JasenController::delete($jasen_id);
+});
+
+$routes->get('/profiili/:jasen_id', function($jasen_id) {
+    JasenController::profiili($jasen_id);
 });
 
 $routes->get('/hallinta', function() {
@@ -50,6 +58,10 @@ $routes->get('/hallinta/jasenrekisteri', function() {
 
 $routes->get('/hallinta/kokoukset', function() {
     KokouksetController::kokoukset();
+});
+
+$routes->post('/hallinta/kokoukset/poista/:kokous_id', function($kokous_id) {
+    KokouksetController::delete($kokous_id);
 });
 
 $routes->get('/hallinta/kokous', function() {

@@ -21,7 +21,7 @@
             </div>
 
             <div class="radio">
-                <label><input type="radio" name="tyyppi"value="Yhdistyksen kokous">Yhdistyksen kokous</label>
+                <label><input type="radio" name="tyyppi" value="Yhdistyksen kokous">Yhdistyksen kokous</label>
             </div>
 
             <div class="radio">
@@ -39,17 +39,19 @@
             <div class="modal fade" id="osallistujaModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Valitse osallistujat</h4>
                         </div>
+                        
                         <div class="modal-body">
                             {% for jasen in jasenet %}
                             <div class="container-fluid">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="osallistuja[]" value="{{jasen.id}}"/>
+                                        <input type="checkbox" name="osallistujat[]" value="{{jasen.jasen_id}}"/>
                                         <p class="osallistuja">{{jasen.nimi}}</p>
                                     </label>
                                 </div>
@@ -58,11 +60,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="toTextarea()">Siirrä</button>
-
+                            <button type="button" class="btn btn-primary" onclick="toTextarea()" data-dismiss="modal" >Siirrä</button>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -90,70 +89,74 @@
                 <button type="submit" class="btn btn-info">Lisää kenttiä</button>
             </div>
         </div>
-
     </div>
-
+<!--
     <div class="form-group">
         <div class="col-md-3" style="margin-top: 20px">
             <button type="submit" class="btn btn-primary">Tallenna</button>
         </div>
     </div>
-</form>
-<div class="form-group">
-    <div class="col-md-4" style="margin-top: 20px">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#maksuModal">
-            Uudet Jäsenmaksut
-        </button>
-        <!-- Modal jäsenmaksu -->
-        <div class="modal fade" id="maksuModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" action="{{base_path}}/hallinta/kokous">
+-->
+    <div class="form-group">
+        <div class="col-md-4" style="margin-top: 20px">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#maksuModal">
+                Uudet Jäsenmaksut
+            </button>
+            <!-- Modal jäsenmaksu -->
+            <div class="modal fade" id="maksuModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--                <form method="post" action="{{base_path}}/hallinta/kokous">-->
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="gridSystemModalLabel">Uudet jäsenmaksut</h4>
                         </div>
                         <div class="modal-body">
-
                             <div class="container-fluid">
-
                                 <div class='col-lg-8'>
                                     <div class='col-lg-4'>
+                                        
                                         <div><label>Vuosi</label>
-                                            <input type="text" class="form-control" value=""/></div>
+                                            <input type="text" name="vuosi" class="form-control" value=""/></div>
+                                            
                                         <h4>Vuosimaksut:</h4>
                                         <div><label>Aikuinen</label>
-                                            <input type="text" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_aikuinen" class="form-control" value=""/></div>
+                                            
                                         <div><label>Juniori</label>
-                                            <input type="text" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_lapsi" class="form-control" value=""/></div>
+                                            
                                         <div><label>SKIL-jäsenyys</label>
-                                            <input type="text" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_skil" class="form-control" value=""/></div>
                                     </div>
                                     <div class='col-lg-4'>
                                         <div><label>Liittymismaksu</label>
-                                            <input type="text" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_liity" class="form-control" value=""/></div>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                         <div class="modal-footer">
-
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Tallenna</button>
-
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Jatka kokouksen</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-6" style="margin-top: 20px">
+            <button type="submit" class="btn btn-primary">Tallenna</button>
+        </div>
+    </div>
+</form>
+
 <script>
     function toTextarea() {
-        var osallistujaBox = document.getElementsByName("osallistuja[]");
+        var osallistujaBox = document.getElementsByName("osallistujat[]");
         var osallistujaName = document.getElementsByClassName("osallistuja");
         var txt = "";
         var i;
@@ -161,7 +164,7 @@
             if (osallistujaBox[i].checked) {
                 txt = txt + osallistujaName[i].innerHTML + "\n";
             }
-        }       
+        }
         document.getElementById("textArea").value = txt;
     }
 </script>

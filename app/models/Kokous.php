@@ -2,10 +2,10 @@
 
 class Kokous extends BaseModel {
 
-    public $pvm, $aika, $paikka, $tyyppi, $muuta, $hal_id, $jasen_id;
+    public $kokous_id, $pvm, $aika, $paikka, $tyyppi, $muuta, $hal_id, $jasenet_id;
 
     public function construct($attributes) {
-        parent::construct($attributes);
+        parent::__construct($attributes);
     }
 
     public static function all() {
@@ -16,6 +16,7 @@ class Kokous extends BaseModel {
 
         foreach ($rows as $row) {
             $kokoukset[] = new Kokous(array(
+                'kokous_id' => $row['kokous_id'],
                 'pvm' => $row['pvm'],
                 'aika' => $row['aika'],
                 'paikka' => $row['paikka'],
@@ -26,13 +27,14 @@ class Kokous extends BaseModel {
         return $kokoukset;
     }
 
-    public static function find_by_pvm($pvm) {
-        $querry = DB::connection()->prepare('SELECT * FROM Kokous WHERE pvm=$pvm LIMIT 1');
-        $querry->execute(array('pvm' => $pvm));
+    public static function find($kokous_id) {
+        $querry = DB::connection()->prepare('SELECT * FROM Kokous WHERE kokous_id = :kokous_id LIMIT 1');
+        $querry->execute(array('kokous_id' => $kokous_id));
         $row = $querry->fetch();
 
         if ($row) {
             $kokous = new Kokous(array(
+                'kokous_id' => $row['kokous_id'],
                 'pvm' => $row['pvm'],
                 'aika' => $row['aika'],
                 'paikka' => $row['paikka'],
@@ -46,20 +48,33 @@ class Kokous extends BaseModel {
 
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Kokous (pvm, aika, paikka, tyyppi) 
-            VALUES (:pvm, :aika, :paikka, :tyyppi) RETURNING id');
+            VALUES (:pvm, :aika, :paikka, :tyyppi) RETURNING kokous_id');
         $query->execute(array(
-            'pvm' => $this->pvm, 
-            'aika' => $this->aika, 
+            'pvm' => $this->pvm,
+            'aika' => $this->aika,
             'paikka' => $this->paikka,
             'tyyppi' => $this->tyyppi));
-        
-        $row = $query->fetch();
-        $this->id = $row['id'];
-                
-        $osallistuja = new Osallistuja(array(
 
-        ));
-        $osallistuja->save($this->id, $this->jasen_id);
+        $row = $query->fetch();
+        $this->kokous_id = $row['kokous_id'];
+
+        foreach ($this->jasenet_id as $jasen_id) {
+//            $attributes = array($this->kokous_id, $jasen_id);
+            $osallistuja = new Osallistuja(array());
+            $osallistuja->save($this->kokous_id, $jasen_id);
+        }
+    }
+
+    public function poista($kokous_id) {
+        $kokous = $this->find($kokous_id);
+        if ($kokous && count($kokous->jasenet_id) === 0) {
+            $query = DB::connection()->prepare('DELETE FROM Kokous WHERE kokous_id = :kokous_id');
+            $query->execute(array('kokous_id' => $kokous_id));
+        }
+        if ($this->find($kokous_id) != NULL) {
+            return FALSE;
+        }
+        return TRUE;
     }
 
 }

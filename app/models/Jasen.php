@@ -2,7 +2,7 @@
 
 class Jasen extends BaseModel {
 
-    public $id, $sala, $nimi, $email, $katuosoite, $posti,
+    public $jasen_id, $sala, $nimi, $email, $katuosoite, $posti,
             $puhelin, $syntyma, $huoltaja, $laji, $rek_aika, $status, $skilstatus, $seura;
 
     public function __construct($attributes) {
@@ -19,7 +19,7 @@ class Jasen extends BaseModel {
 
         foreach ($rows as $row) {
             $jasenet[] = new Jasen(array(
-                'id' => $row['id'],
+                'jasen_id' => $row['jasen_id'],
                 'nimi' => $row['nimi'],
                 'email' => $row['email'],
                 'katuosoite' => $row['katuosoite'],
@@ -36,14 +36,14 @@ class Jasen extends BaseModel {
         return $jasenet;
     }
 
-    public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Jasen WHERE id = :id LIMIT 1');
-        $query->execute(array('id' => $id));
+    public static function find($jasen_id) {
+        $query = DB::connection()->prepare('SELECT * FROM Jasen WHERE jasen_id = :jasen_id LIMIT 1');
+        $query->execute(array('jasen_id' => $jasen_id));
         $row = $query->fetch();
 
         if ($row) {
             $jasen = new Jasen(array(
-                'id' => $row['id'],
+                'jasen_id' => $row['jasen_id'],
                 'nimi' => $row['nimi'],
                 'email' => $row['email'],
                 'katuosoite' => $row['katuosoite'],
@@ -52,7 +52,7 @@ class Jasen extends BaseModel {
                 'syntyma' => $row['syntyma'],
                 'huoltaja' => $row['huoltaja'],
                 'laji' => $row['laji'],
-                'status' => $row['status'],
+                'status' => $row['status'], 
                 'skilstatus' => $row['skilstatus'],
                 'seura' => $row['seura']));
             return $jasen;
@@ -67,7 +67,7 @@ class Jasen extends BaseModel {
 
         if ($row) {
             $jasen = new Jasen(array(
-                'id' => $row['id'],
+                'jasen_id' => $row['jasen_id'],
                 'email' => $row['email']));
             return $jasen;
         }
@@ -77,7 +77,7 @@ class Jasen extends BaseModel {
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Jasen (nimi, sala, email, katuosoite, posti,
             puhelin, syntyma, huoltaja, seura, laji) VALUES (:nimi, :sala, :email, :katuosoite, :posti,
-            :puhelin, :syntyma, :huoltaja, :seura, :laji) RETURNING id');
+            :puhelin, :syntyma, :huoltaja, :seura, :laji) RETURNING jasen_id');
         $laji = "{";
         foreach ($this->laji as $key => $value) {
             if ($value == '') {
@@ -100,7 +100,40 @@ class Jasen extends BaseModel {
             'seura' => $this->seura,
             'laji' => $laji));
         $row = $query->fetch();
-        $this->id = $row['id'];
+        $this->jasen_id = $row['jasen_id'];
+        
+        return $this->jasen_id;
+    }
+
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Jasen '
+                . 'SET email=:email, sala=:sala, kotiosoite=:kotiosoite, '
+                . 'posti=:posti, puhelin=:puhelin, laji=:laji, seura=:seura'
+                . ' WHERE jasen_id=:jasen_id');
+        $laji = "{";
+        foreach ($this->laji as $key => $value) {
+            if ($value == '') {
+                continue;
+            }
+            $laji .= '"' . $value . '",';
+        }
+        $laji = rtrim($laji, ',');
+        $laji .= "}";
+
+        $query->execute(array(
+            'jasen_id'=>  $jasen->jasen_id,
+            'sala' => $jasen->sala,
+            'email' => $jasen->email,
+            'katuosoite' => $jasen->katuosoite,
+            'posti' => $jasen->posti,
+            'puhelin' => $jasen->puhelin,
+            'laji' => $jasen->laji,
+            'seura'=>  $jasen->seura));
+
+        $row = $query->fetch();
+        $this->jasen_id = $row['jasen_id'];
+        
+        return $this->jasen_id;
     }
 
     public static function authenticate($nimi, $sala) {
@@ -110,7 +143,7 @@ class Jasen extends BaseModel {
 
         if ($row) {
             $jasen = new Jasen(array(
-                'id' => $row['id'],
+                'jasen_id' => $row['jasen_id'],
                 'nimi' => $row['nimi'],
                 'sala' => $row['sala'],
                 'email' => $row['email'],
@@ -123,28 +156,33 @@ class Jasen extends BaseModel {
                 'status' => $row['status'],
                 'skilstatus' => $row['skilstatus'],
                 'seura' => $row['seura']));
+
             return $jasen;
         }
         return NULL;
     }
 
-    public function hyvaksy($id) {
-        $jasen = $this->find($id);
+    public function hyvaksy($jasen_id) {
+        $jasen = $this->find($jasen_id);
+        
         if ($jasen && ($jasen->status === 'Kesken' || $jasen->status === 'maksu')) {
-            $query = DB::connection()->prepare('UPDATE Jasen SET status=:status WHERE id=:id');
-            $query->execute(array('id' => $id, 'status' => 'true'));
+            $query = DB::connection()->prepare('UPDATE Jasen SET status=:status WHERE jasen_id=:jasen_id');
+            $query->execute(array('jasen_id' => $jasen_id, 'status' => 'true'));
+             
+            $jasenmaksu = new Jasenmaksu(array());
+            $jasenmaksu->paivita($jasen_id);
             return TRUE;
         }
         return FALSE;
     }
 
-    public function poista($id) {
-        $jasen = $this->find($id);
+    public function poista($jasen_id) {
+        $jasen = $this->find($jasen_id);
         if ($jasen && $jasen->status === 'Kesken') {
-            $query = DB::connection()->prepare('DELETE FROM Jasen WHERE id = :id');
-            $query->execute(array('id' => $id));
+            $query = DB::connection()->prepare('DELETE FROM Jasen WHERE jasen_id = :jasen_id');
+            $query->execute(array('jasen_id' => $jasen_id));
         }
-        if ($this->find($id) != NULL) {
+        if ($this->find($jasen_id) != NULL) {
             return FALSE;
         }
         return TRUE;
@@ -152,7 +190,8 @@ class Jasen extends BaseModel {
 
     public function validoi_nimi() {
         $errors = array();
-        $errors[] = $this->string_notempty_validator($this->nimi);
+        $errors[] = $this->string_notempty_validator($this->nimi, "'Nimi'");
+        $errors[] = $this->string_length_validator($this->sala, 5, "'Nimi'");
         if (!strpos($this->nimi, ' ')) {
             $errors[] = 'Etu- tai sukunimesi puuttuu';
         }
@@ -161,14 +200,14 @@ class Jasen extends BaseModel {
 
     public function validoi_sala() {
         $errors = array();
-        $errors[] = $this->string_notempty_validator($this->sala);
-        $errors[] = $this->string_length_validator($this->sala, 4);
+        $errors[] = $this->string_notempty_validator($this->sala, "'Salasana'");
+        $errors[] = $this->string_length_validator($this->sala, 4, "'Salasana'");
         return $errors;
     }
 
     public function validoi_email() {
         $errors = array();
-        $errors[] = $this->string_notempty_validator($this->email);
+        $errors[] = $this->string_notempty_validator($this->email, "'Sähköposti'");
         if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Tarkista sähköposti';
         }
@@ -177,7 +216,7 @@ class Jasen extends BaseModel {
 
     public function validoi_syntyma() {
         $errors = array();
-        $errors[] = $this->string_notempty_validator($this->syntyma);
+        $errors[] = $this->string_notempty_validator($this->syntyma, "'Syntymäaika'");
         $errors[] = $this->date_validator($this->syntyma);
         return $errors;
     }
@@ -195,7 +234,7 @@ class Jasen extends BaseModel {
             $age = $diff->y;
 
             if ($age < 18) {
-                $errors[] = $this->string_notempty_validator($this->huoltaja);
+                $errors[] = $this->string_notempty_validator($this->huoltaja, "'Huoltaja'");
                 if (!strpos($this->huoltaja, ' ')) {
                     $errors[] = 'Ilmoita huoltajan etu- sekä sukunimi ';
                 }
@@ -206,7 +245,7 @@ class Jasen extends BaseModel {
 
     public function validoi_posti() {
         $errors = array();
-        if ($this->posti && !preg_match("/^\d{5}/", $this->syntyma)) {
+        if ($this->posti && !preg_match("/^\d{5}/", $this->posti)) {
             $errors[] = 'Muistitko syöttää postinumeron';
         }
         return $errors;

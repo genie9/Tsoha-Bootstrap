@@ -26,13 +26,15 @@ class KayttajatController extends BaseController {
 
         if (count($errors) == 0) {
             $jasen->save();
-            Redirect::to('/profiili/' . $jasen->id, array('message' => 'Hakemuksesi käsitellään seuraavassa hallituksen kokouksessa'));
+            
+            $kayttaja = $jasen->authenticate($jasen->nimi, $jasen->sala);
+            $_SESSION['kayttaja'] = $kayttaja->jasen_id;
+            
+            Redirect::to('/profiili/' . $jasen->jasen_id, array('message' => 'Hakemuksesi käsitellään seuraavassa hallituksen kokouksessa'));
         } else {
             View::make('rekisterointi.html', array('errors' => $errors, 'attributes' => $attributes));
         }
     }
-
-    
 
     public static function login() {
         View::make('login.html');
@@ -40,16 +42,21 @@ class KayttajatController extends BaseController {
 
     public static function handle_login() {
         $params = $_POST;
-
+        
         $kayttaja = Jasen::authenticate($params['nimi'], $params['sala']);
 
         if (!$kayttaja) {
             View::make('login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'nimi' => $params['nimi']));
         } else {
-            $_SESSION['kayttaja'] = $kayttaja->id;
+            $_SESSION['kayttaja'] = $kayttaja->jasen_id;
 
-            Redirect::to('/profiili/' . $kayttaja->id, array('message' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
+            Redirect::to('/profiili/' . $kayttaja->jasen_id, array('message' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
         }
+    }
+
+    public static function logout() {
+        $_SESSION['kayttaja'] = null;
+        Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
     }
 
 }

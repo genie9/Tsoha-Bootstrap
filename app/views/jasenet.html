@@ -8,7 +8,7 @@
 <ul style="list-style-type:none">
     {% for jasen in jasenet %}
     {% if jasen.status != 'Kesken' %}
-    <li><a href="{{base_path}}/profiili/{{jasen.id}}">{{jasen.nimi}}</a></li>
+    <li><a href="{{base_path}}/profiili/{{jasen.jasen_id}}">{{jasen.nimi}}</a></li>
     {% endif %}
     {% endfor %}
 </ul>

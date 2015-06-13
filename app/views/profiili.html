@@ -4,7 +4,7 @@
 <h1>Jäsenprofiili</h1>
 
 <p style="font-style: italic"> tämä sivu näkyy kirjautuessa jäsenille<br>
-    VIP-nappi tulee näkymään vain hallituksen jäsenille, vie jäsenrekisteriin </p>
+    admin-nappi tulee näkymään vain hallituksen jäsenille, vie jäsenrekisteriin </p>
 
 {% if message %}
 <div class="alert alert-success">
@@ -14,9 +14,9 @@
 
 <!-- Painikkeet tähän -->
 <div class="row">
-    {% if user_logged_in %}
+    {% if user_logged_in.jasen_id == jasen.jasen_id %}
     <div class="col-md-1">
-        <form method="post" action="{{base_path}}/profiili/muokkaa_jasen/{{jasen.id}}" style="display: inline-block;">
+        <form method="post" action="{{base_path}}/muokkaa_jasen/{{jasen.jasen_id}}" style="display: inline-block;">
            <button type="submit" class="btn btn-default">Muokkaa</button>
         </form>
     </div>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-1">
-        <a href="{{base_path}}/hallinta/jasenrekisteri" class="btn btn-success">VIP</a>
+        <a href="{{base_path}}/hallinta/jasenrekisteri" class="btn btn-success">admin</a>
     </div>
 </div>
 {% endif %}

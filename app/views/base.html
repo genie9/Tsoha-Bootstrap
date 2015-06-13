@@ -40,15 +40,19 @@
                         <!-- Navigaation linkit -->
                         <li><a href="{{base_path}}/jasenet">Jäsenet</a></li>
                         {% if user_logged_in %}
-                        <li><a href="{{base_path}}/profiili/{{user_logged_in.id}}">Oma sivu</a></li>
+                        <li><a href="{{base_path}}/profiili/{{user_logged_in.jasen_id}}">Oma sivu</a></li>
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user_logged_in %}
                         <li style="padding: 15px 15px"><span class="glyphicon glyphicon-heart"></span> {{user_logged_in.nimi}}</li>
-                        {% endif %}
+                        <form class="navbar-form navbar-right" method="post" action="{{base_path}}/logout">
+                            <button type="submit" class="btn btn-link"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu ulos</button>
+                        </form>
+                        {% else %}
                         <li><a href="{{base_path}}/rekisterointi"><span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
                         <li><a href="{{base_path}}/login"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 CREATE TABLE Jasen (
-    id SERIAL PRIMARY KEY,
+    jasen_id SERIAL PRIMARY KEY,
     nimi varchar(50) NOT NULL,
     sala varchar(50) NOT NULL,
     email varchar(50) NOT NULL UNIQUE,
@@ -16,12 +16,12 @@ CREATE TABLE Jasen (
 );
 
 CREATE TABLE Hallitus (
-    id SERIAL PRIMARY KEY,
+    hal_id SERIAL PRIMARY KEY,
     vuosi integer NOT NULL UNIQUE
 );
 
 CREATE TABLE Kokous (
-    id SERIAL PRIMARY KEY,
+    kokous_id SERIAL PRIMARY KEY,
     pvm date NOT NULL,
     aika varchar(5) NOT NULL,
     paikka varchar(25),
@@ -47,7 +47,7 @@ CREATE TABLE Kokous_has_Jasen (
 );
 
 CREATE TABLE Dokumentti (
-    id SERIAL PRIMARY KEY,
+    dok_id SERIAL PRIMARY KEY,
     nimi varchar(50) NOT NULL,
     pvm date NOT NULL,
     url text NOT NULL,
@@ -56,11 +56,12 @@ CREATE TABLE Dokumentti (
 );
 
 CREATE TABLE Jasenmaksu (
-    id SERIAL PRIMARY KEY,
-    vuosi date NOT NULL UNIQUE,
+    maksu_id SERIAL PRIMARY KEY,
+    vuosi numeric NOT NULL UNIQUE,
     maara_lapsi numeric NOT NULL,
     maara_aikuinen numeric NOT NULL,
-    maara_skil numeric NOT NULL
+    maara_skil numeric NOT NULL,
+    maara_liity numeric NOT NULL
 );
 
 CREATE TABLE Jasen_has_Jasenmaksu (

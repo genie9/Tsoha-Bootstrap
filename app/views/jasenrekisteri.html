@@ -69,14 +69,14 @@
             <!--aktiiviset ainostaan statuksen ollessa 'kesken' tai 'maksu'-->
             {% if jasen.status == 'Kesken' or jasen.status ==  'Maksu' %}  
             <th>
-                <form method="post" action="{{base_path}}/jasenrekisteri/hyvaksy/{{jasen.id}}" style="display: inline-block;">
+                <form method="post" action="{{base_path}}/jasenrekisteri/hyvaksy/{{jasen.jasen_id}}" style="display: inline-block;">
                     <button type="submit" class="btn btn-warning btn-xs">Hyväksy</button>
                 </form>
             </th>
             {% endif %}
             {% if jasen.status == 'Kesken' %}
             <th>
-                <form method="post" action="{{base_path}}/jasenrekisteri/poista/{{jasen.id}}" style="display: inline-block;">
+                <form method="post" action="{{base_path}}/jasenrekisteri/poista/{{jasen.jasen_id}}" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger btn-xs">Poista</button>
                 </form>
             </th>

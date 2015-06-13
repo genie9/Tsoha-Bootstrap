@@ -5,59 +5,64 @@
 <h1>Muokkaa tietojasi ja salasanasi</h1>
 
 {% if errors %}
-    <div class="alert alert-danger">
-      <ul>
+<div class="alert alert-danger">
+    <ul>
         {% for error in errors %}
-          <li>{{error}}</li>
+        <li>{{error}}</li>
         {% endfor %}
-      </ul>
-    </div>
+    </ul>
+    {% if message %}
+    <div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+</div>
 {% endif %}
 
-<form  method="post" action="{{base_path}}/muokkaa_jasen">
+<form  method="post" action="{{base_path}}/update/{{attributes.jasen_id}}">
     <div class="form-group">
         <div class="col-sm-6">
             <label>Nimi</label>
-            <input type="text" name="nimi" class="form-control" placeholder="Etu- ja sukunimi" required value="{{jasen.nimi}}" />
+            <p style="font: bold">{{attributes.nimi}}</p>
         </div>
         <div class="col-sm-6">
             <label>Sähköposti</label>
-            <input  type="email" id="email" name="email" class="form-control"  value="{{jasen.sala}}"/>
+            <input  type="email" id="email" name="email" class="form-control"  value="{{attributes.email}}"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label>Salasana</label>
-            <input type="text" name="sala" class="form-control" required />
+            <input type="text" name="sala" class="form-control" value="{{attributes.sala}}"/>
         </div>
         <div class="col-sm-6">
             <label>Salasana uudelleen</label>
-            <input type="text" name="huoltaja" class="form-control"/>
+            <input type="text" name="huoltaja" class="form-control" value="{{attributes.sala}}"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label>Katuosoite</label>
-            <input type="text" name="katuosoite" class="form-control" value="{{jasen.katuosoite}}"/>
+            <input type="text" name="katuosoite" class="form-control" value="{{attributes.katuosoite}}"/>
         </div>
         <div class="col-sm-6">
             <label>Postinumero</label>
-            <input type="text" name="posti" class="form-control" placeholder="01234 PAIKKAKUNTA" value="{{jasen.posti}}"/>
+            <input type="text" name="posti" class="form-control" placeholder="01234 PAIKKAKUNTA" value="{{attributes.posti}}"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
             <label>Puhelin</label>
-            <input type="text" name="puhelin" class="form-control" value="{{jasen.puhelin}}" />
+            <input type="text" name="puhelin" class="form-control" value="{{attributes.puhelin}}" />
         </div>
         <div class="col-sm-6">
             <label>Rinnakkainen seura</label>
-            <input type="text" name="seura" class="form-control" value="{{jasen.seura}}" />
+            <input type="text" name="seura" class="form-control" value="{{attributes.seura}}" />
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-12">
-            <label>Kiipeilylaji (tällä hetkellä {{jasen.laji}})</label>
+            <label>Kiipeilylaji (tällä hetkellä {{attributes.laji}})</label>
         </div>
     </div>
     <div class="form-group">
@@ -118,13 +123,18 @@
             </div>
         </div>
     </div>
-    
+    <!-- Automaattiset inputit -->
+    <div class="form-group" style="display:none">
+        <input type="text" name="nimi" class="form-control" value="{{attributes.nimi}}"/>
+        <input type="text" name="syntyma" class="form-control" value="{{attributes.syntyma}}"/>
+    </div>
+    <!---->
     <div class="form-group">
         <div class="col-md-3" style="margin-top: 20px">
             <button type="submit" class="btn btn-primary">Päivitä</button>
         </div>
     </div>
 </form>
-  
+
 {% endif %}  
 {% endblock %}

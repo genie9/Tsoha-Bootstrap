@@ -16,18 +16,18 @@ class BaseModel {
         }
     }
 
-    public function string_notempty_validator($string) {
+    public function string_notempty_validator($string, $field_name) {
         $errors = '';
         if ($string == NULL || $string == '') {
-            $errors = 'Kenttä ei saa olla tyhjä';
+            $errors = $field_name . ' kenttä ei saa olla tyhjä';
         }
         return $errors;
     }
 
-    public function string_length_validator($string, $length) {
+    public function string_length_validator($string, $length, $field_name) {
         $errors = '';
         if (strlen($string) < $length) {
-            $errors = 'Kentän syötteen pituus väintään ' . $length . " merkkiä";
+            $errors = $field_name . ' kentän syötteen pituus väintään ' . $length . " merkkiä";
         }
         return $errors;
     }
@@ -41,19 +41,20 @@ class BaseModel {
     }
 
     public function date_validator($string) {
+        $year_now = date('Y');
         $errors = '';
         if (!preg_match("/^[0-9]{1,2}.[0-9]{1,2}.[0-9]{2,4}$/", $string)) {
             $errors = 'Tarkista päivämäärä';
         } else {
             list($day, $month, $year) = explode(".", $string);
-            if (!checkdate($month, $day, $year) && $year) {
+            if (!checkdate($month, $day, $year) || $year < 1900 || $year > $year_now) {
                 $errors = 'Tarkista päivämäärä';
             }
         }
         return $errors;
     }
 
-    public function functionName($type) {
+    public function function_NotInUse($type) {
         $errors = "";
         if ($type === 'puhelin' && preg_match("/\D/", $string)) {
             $errors .= 'Tarkista puhelinnumero';
