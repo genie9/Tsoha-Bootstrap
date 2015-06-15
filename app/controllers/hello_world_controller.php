@@ -2,14 +2,6 @@
 
 class HelloWorldController extends BaseController {
 
-    public static function index() {
-        View::make('base.html');
-    }
-
-    public static function hallinta() {
-        View::make('hallinta_base.html');
-    }
-
     public static function sandbox() {
         $jasen = new Jasen(array(
             'nimi'=>'',

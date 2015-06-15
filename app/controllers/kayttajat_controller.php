@@ -2,6 +2,15 @@
 
 class KayttajatController extends BaseController {
 
+    public static function index() {
+        View::make('base.html');
+    }
+
+    public static function jasenet() {
+        $jasenet = Jasen::all();
+        View::make('jasenet.html', array('jasenet' => $jasenet));
+    }
+
     public static function rek_lomake() {
         View::make('rekisterointi.html');
     }
@@ -26,10 +35,10 @@ class KayttajatController extends BaseController {
 
         if (count($errors) == 0) {
             $jasen->save();
-            
+
             $kayttaja = $jasen->authenticate($jasen->nimi, $jasen->sala);
             $_SESSION['kayttaja'] = $kayttaja->jasen_id;
-            
+
             Redirect::to('/profiili/' . $jasen->jasen_id, array('message' => 'Hakemuksesi käsitellään seuraavassa hallituksen kokouksessa'));
         } else {
             View::make('rekisterointi.html', array('errors' => $errors, 'attributes' => $attributes));
@@ -42,7 +51,7 @@ class KayttajatController extends BaseController {
 
     public static function handle_login() {
         $params = $_POST;
-        
+
         $kayttaja = Jasen::authenticate($params['nimi'], $params['sala']);
 
         if (!$kayttaja) {
