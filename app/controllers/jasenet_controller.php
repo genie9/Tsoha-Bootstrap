@@ -26,10 +26,11 @@ class JasenController extends BaseController {
         $jasen_old = Jasen::find($jasen_id);
 
         $attributes = array(
-            'jasen_id' => $jasen_id,
-            'nimi' => $params['nimi'],
+            'jasen_id' => $jasen_old->jasen_id,
+            'nimi' => $jasen_old->nimi,
             'email' => $params['email'],
-            'syntyma' => $params['syntyma'],
+            'syntyma' => $jasen_old->syntyma,
+            'huoltaja' => $jasen_old->huoltaja,
             'sala' => $params['sala'],
             'katuosoite' => $params['katuosoite'],
             'posti' => $params['posti'],
@@ -37,11 +38,9 @@ class JasenController extends BaseController {
             'laji' => $params['laji'],
             'seura' => $params['seura']
         );
-        $attributes['nimi'] = $jasen_old->nimi;
-        $attributes['syntyma'] = $jasen_old->syntyma;
 
         $jasen = new Jasen($attributes);
-
+        print_r($jasen);
         $errors = $jasen->errors();
 
         if (count($errors) == 0) {

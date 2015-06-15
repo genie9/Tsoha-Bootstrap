@@ -27,7 +27,7 @@ class BaseModel {
     public function string_length_validator($string, $length, $field_name) {
         $errors = '';
         if (strlen($string) < $length) {
-            $errors = $field_name . ' kentän syötteen pituus väintään ' . $length . " merkkiä";
+            $errors = $field_name . ' kentän syötteen pituus väintään ' . $length . " merkkiä, pituus oli " . strlen($string) . " merkkiä.";
         }
         return $errors;
     }
@@ -43,18 +43,21 @@ class BaseModel {
     public function date_validator($string) {
         $year_now = date('Y');
         $errors = '';
-        if (!preg_match("/^[0-9]{1,2}.[0-9]{1,2}.[0-9]{2,4}$/", $string)) {
-            $errors = 'Tarkista päivämäärä';
-        } else {
+        if (preg_match("/^[0-9]{1,2}.[0-9]{1,2}.[0-9]{2,4}$/", $string)) {
             list($day, $month, $year) = explode(".", $string);
-            if (!checkdate($month, $day, $year) || $year < 1900 || $year > $year_now) {
-                $errors = 'Tarkista päivämäärä';
-            }
+        } else if (preg_match("/^[0-9]{4}.[0-9]{2}.[0-9]{2}$/", $string)) {
+            list($year, $month, $day) = explode("-", $string);
+        } else {
+            $errors = 'Tarkista päivämäärä eka testi fail';
+            return $errors;
+        }
+        if (!checkdate($month, $day, $year) || $year < 1900 || $year > $year_now) {
+            $errors = 'Tarkista päivämäärä KOLMAS testi fail';
         }
         return $errors;
     }
 
-    public function function_NotInUse($type) {
+    public function function_NotInUse($string) {
         $errors = "";
         if ($type === 'puhelin' && preg_match("/\D/", $string)) {
             $errors .= 'Tarkista puhelinnumero';

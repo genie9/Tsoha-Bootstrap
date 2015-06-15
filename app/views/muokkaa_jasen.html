@@ -19,7 +19,7 @@
 </div>
 {% endif %}
 
-<form  method="post" action="{{base_path}}/update/{{attributes.jasen_id}}">
+<form  method="post" action="{{base_path}}/update/{{attributes.jasen_id}}" onsubmit="return tarkistaSala()">
     <div class="form-group">
         <div class="col-sm-6">
             <label>Nimi</label>
@@ -33,11 +33,11 @@
     <div class="form-group">
         <div class="col-sm-6">
             <label>Salasana</label>
-            <input type="text" name="sala" class="form-control" value="{{attributes.sala}}"/>
+            <input id="sala1" type="text" name="sala" class="form-control" value="{{attributes.sala}}"/>
         </div>
         <div class="col-sm-6">
             <label>Salasana uudelleen</label>
-            <input type="text" name="huoltaja" class="form-control" value="{{attributes.sala}}"/>
+            <input id="sala2" type="text" name="huoltaja" class="form-control" value="{{attributes.sala}}"/>
         </div>
     </div>
     <div class="form-group">
@@ -123,18 +123,20 @@
             </div>
         </div>
     </div>
-    <!-- Automaattiset inputit -->
-    <div class="form-group" style="display:none">
-        <input type="text" name="nimi" class="form-control" value="{{attributes.nimi}}"/>
-        <input type="text" name="syntyma" class="form-control" value="{{attributes.syntyma}}"/>
-    </div>
-    <!---->
+
     <div class="form-group">
         <div class="col-md-3" style="margin-top: 20px">
             <button type="submit" class="btn btn-primary">Päivitä</button>
         </div>
     </div>
 </form>
-
+<script>
+    function tarkistaSala(){
+        if(document.getElementById("sala1").value != document.getElementById("sala2").value){
+            alert("Syötä samat salasanat kumpaankin kenttään");
+            return false;
+        }
+    }
+</script>
 {% endif %}  
 {% endblock %}

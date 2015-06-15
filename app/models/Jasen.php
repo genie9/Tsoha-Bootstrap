@@ -107,7 +107,7 @@ class Jasen extends BaseModel {
 
     public function update() {
         $query = DB::connection()->prepare('UPDATE Jasen '
-                . 'SET email=:email, sala=:sala, kotiosoite=:kotiosoite, '
+                . 'SET email=:email, sala=:sala, katuosoite=:katuosoite, '
                 . 'posti=:posti, puhelin=:puhelin, laji=:laji, seura=:seura'
                 . ' WHERE jasen_id=:jasen_id');
         $laji = "{";
@@ -121,17 +121,16 @@ class Jasen extends BaseModel {
         $laji .= "}";
 
         $query->execute(array(
-            'jasen_id'=>  $jasen->jasen_id,
-            'sala' => $jasen->sala,
-            'email' => $jasen->email,
-            'katuosoite' => $jasen->katuosoite,
-            'posti' => $jasen->posti,
-            'puhelin' => $jasen->puhelin,
-            'laji' => $jasen->laji,
-            'seura'=>  $jasen->seura));
+            'jasen_id'=>  $this->jasen_id,
+            'sala' => $this->sala,
+            'email' => $this->email,
+            'katuosoite' => $this->katuosoite,
+            'posti' => $this->posti,
+            'puhelin' => $this->puhelin,
+            'laji' => $laji,
+            'seura'=>  $this->seura));
 
         $row = $query->fetch();
-        $this->jasen_id = $row['jasen_id'];
         
         return $this->jasen_id;
     }
@@ -191,7 +190,7 @@ class Jasen extends BaseModel {
     public function validoi_nimi() {
         $errors = array();
         $errors[] = $this->string_notempty_validator($this->nimi, "'Nimi'");
-        $errors[] = $this->string_length_validator($this->sala, 5, "'Nimi'");
+        $errors[] = $this->string_length_validator($this->nimi, 5, "'Nimi'");
         if (!strpos($this->nimi, ' ')) {
             $errors[] = 'Etu- tai sukunimesi puuttuu';
         }
