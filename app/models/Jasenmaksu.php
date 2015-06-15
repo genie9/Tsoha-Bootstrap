@@ -4,7 +4,7 @@ class Jasenmaksu extends BaseModel {
 
     public $maksu_id, $vuosi, $maara_lapsi, $maara_aikuinen, $maara_skil, $maara_liity;
 
-    public function construct($attributes) {
+    public function __construct($attributes) {
         parent::__construct($attributes);
         $this->validators = array("validoi_vuosi", "validoi_maara");
     }

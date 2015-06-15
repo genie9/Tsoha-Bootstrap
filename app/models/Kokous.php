@@ -4,7 +4,7 @@ class Kokous extends BaseModel {
 
     public $kokous_id, $pvm, $aika, $paikka, $tyyppi, $muuta, $hal_id, $jasenet_id;
 
-    public function construct($attributes) {
+    public function __construct($attributes) {
         parent::__construct($attributes);
         $this->validators = array("validoi_pvm", "validoi_aika", "validoi_tyyppi");
     }

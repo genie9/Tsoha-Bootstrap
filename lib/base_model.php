@@ -3,7 +3,7 @@
 class BaseModel {
 
     // "protected"-attribuutti on käytössä vain luokan ja sen perivien luokkien sisällä
-    protected $validators;
+    public $validators;
 
     public function __construct($attributes = null) {
         // Käydään assosiaatiolistan avaimet läpi
@@ -45,12 +45,14 @@ class BaseModel {
         $errors = '';
         if (preg_match("/^[0-9]{1,2}.[0-9]{1,2}.[0-9]{2,4}$/", $string)) {
             list($day, $month, $year) = explode(".", $string);
+            goto mo_cheking;
         } else if (preg_match("/^[0-9]{4}.[0-9]{2}.[0-9]{2}$/", $string)) {
             list($year, $month, $day) = explode("-", $string);
         } else {
             $errors = 'Tarkista päivämäärä';
             return $errors;
         }
+        mo_cheking:
         if (!checkdate($month, $day, $year) || $year < 1900 || $year > $year_now) {
             $errors = 'Tarkista päivämäärä';
         }
@@ -65,7 +67,7 @@ class BaseModel {
         return $errors;
     }
 
-    public function errors() {
+      public function errors() {
         $errors = array();
 
         foreach ($this->validators as $validator) {

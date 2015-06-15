@@ -5,10 +5,10 @@ class Jasen extends BaseModel {
     public $jasen_id, $sala, $nimi, $email, $katuosoite, $posti,
             $puhelin, $syntyma, $huoltaja, $laji, $rek_aika, $status, $skilstatus, $seura;
 
-    public function construct($attributes) {
+    public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array("validoi_nimi", "validoi_sala", "validoi_email",
-            "validoi_syntyma", "validoi_ika_huoltaja", "validoi_posti");
+        $this->validators = array('validoi_nimi', 'validoi_sala', 'validoi_email',
+            'validoi_syntyma', 'validoi_ika_huoltaja', 'validoi_posti');
     }
 
     public static function all() {

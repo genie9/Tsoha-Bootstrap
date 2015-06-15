@@ -31,6 +31,7 @@ class KayttajatController extends BaseController {
             'seura' => $params['seura']
         ));
         $jasen = new Jasen($attributes);
+        
         $errors = $jasen->errors();
 
         if (count($errors) == 0) {

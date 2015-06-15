@@ -26,7 +26,7 @@ class KokouksetController extends BaseController {
         if (isset($_POST['osallistujat'])) {
             $osallistujat = $_POST['osallistujat'];
         } else {
-            $osallistujat = "";
+            $osallistujat = array();
         }
         
         $params = $_POST;
@@ -38,13 +38,14 @@ class KokouksetController extends BaseController {
             'tyyppi' => $tyyppi,
             'jasenet_id' => $osallistujat);
         $kokous = new Kokous($attributes_kokous);
-//        $errors_kokous = $kokous->errors();
+        $errors_kokous = $kokous->errors();
 //        if($params['osallistujat'] != ''){
 //            $kokous->jasenet_id
 //        }
 
         $maksut = FALSE;
         $errors_maksu = array();
+        $attributes_maksu = array();
 
         if ($params['vuosi'] != '') {
             $maksut = TRUE;
@@ -58,16 +59,17 @@ class KokouksetController extends BaseController {
             $maksu = new Jasenmaksu($attributes_maksu);
             $errors_maksu = $maksu->errors();
         }
-//count($errors_kokous) == 0 && 
-        if (count($errors_maksu) == 0) {
+// 
+        if (count($errors_kokous) == 0 && count($errors_maksu) == 0) {
             $kokous->save();
             if ($maksut) {
                 $maksu->save();
             }
             Redirect::to('/hallinta/kokoukset', array('message' => 'Kokous on lisätty!'));
         } else {
-//            $errors = array_merge($errors_maksu, $errors_kokous);
-            View::make('kokous.html', array('errors' => $errors_maksu, 'attr_kokous' => $attributes_kokous, 'attr_maksu' => $attributes_maksu));
+            $errors = array_merge($errors_maksu, $errors_kokous);
+            $attributes = array_merge($attributes_maksu, $attributes_kokous);
+            View::make('kokous.html', array('errors' => $errors, 'attributes' => $attributes));
         }
     }
 
