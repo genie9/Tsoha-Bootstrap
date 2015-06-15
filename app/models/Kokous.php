@@ -6,6 +6,7 @@ class Kokous extends BaseModel {
 
     public function construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array("validoi_pvm", "validoi_aika", "validoi_tyyppi");
     }
 
     public static function all() {
@@ -75,6 +76,26 @@ class Kokous extends BaseModel {
             return FALSE;
         }
         return TRUE;
+    }
+
+    public function validoi_pvm() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->pvm, "'Päivä'");
+        $errors[] = $this->date_validator($this->pvm);
+        return $errors;
+    }
+
+    public function validoi_aika() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->aika, "'Aika'");
+        $errors[] = $this->time_validator($this->aika);
+        return $errors;
+    }
+
+    public function validoi_tyyppi() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->tyyppi, "'Kokoustyyppi'");
+        return $errors;
     }
 
 }

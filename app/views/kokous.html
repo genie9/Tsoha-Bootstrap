@@ -3,17 +3,27 @@
 
 <h3>Luo tai muokkaa kokous</h3>
 
+{% if errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for error in errors %}
+          <li>{{error}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endif %}
+  
 <form method="post" action="{{base_path}}/hallinta/kokous">
     <div class="form-group">
         <div class="col-sm-4">
             <label>Päivä</label>
-            <input type="text" id="pvm" name="pvm" class="form-control" required />
+            <input type="text" id="pvm" name="pvm" class="form-control" required value="{{attr_kokous.pvm}}" />
 
             <label>Aika</label>
-            <input type="text" name="aika" class="form-control" required />
+            <input type="text" name="aika" class="form-control" required value="{{attr_kokous.aika}}"/>
 
             <label>Paikka</label>
-            <input type="text" name="paikka" class="form-control" required />
+            <input type="text" name="paikka" class="form-control" value="{{attr_kokous.paikka}}"/>
         </div>
         <div class="col-sm-2">
             <div>
@@ -32,6 +42,9 @@
                 <label><input type="radio" name="tyyppi" value="Vuosikokous">Vuosikokous</label>
             </div>
         </div>
+        <!--
+        OSALLISTUJAT
+        -->
         <div class="col-sm-4">
             <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm" id="myBtn" data-toggle="modal" data-target="#osallistujaModal">
                 Valitse osallistujat</button>
@@ -49,7 +62,7 @@
                         <div class="modal-body">
                             {% for jasen in jasenet %}
                             <div class="container-fluid">
-                                <div class="checkbox">
+                                <div class="checkbox form-control">
                                     <label>
                                         <input type="checkbox" name="osallistujat[]" value="{{jasen.jasen_id}}"/>
                                         <p class="osallistuja">{{jasen.nimi}}</p>
@@ -85,17 +98,13 @@
                 <input type="text" class="form-control" value="linkki"/>
             </div>
 
-            <div class="col-sm-1 col-sm-offset-1">
+            <div class="col-sm-1">
                 <button type="submit" class="btn btn-info">Lisää kenttiä</button>
             </div>
         </div>
     </div>
 <!--
-    <div class="form-group">
-        <div class="col-md-3" style="margin-top: 20px">
-            <button type="submit" class="btn btn-primary">Tallenna</button>
-        </div>
-    </div>
+jäsenmaksut
 -->
     <div class="form-group">
         <div class="col-md-4" style="margin-top: 20px">
@@ -119,21 +128,21 @@
                                     <div class='col-lg-4'>
                                         
                                         <div><label>Vuosi</label>
-                                            <input type="text" name="vuosi" class="form-control" value=""/></div>
+                                            <input type="text" name="vuosi" class="form-control" value="" value="{{attr_maksu.vuosi}}"/></div>
                                             
                                         <h4>Vuosimaksut:</h4>
                                         <div><label>Aikuinen</label>
-                                            <input type="text" name="maara_aikuinen" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_aikuinen" class="form-control" value="{{attr_maksu.maara_aikuinen}}"/></div>
                                             
                                         <div><label>Juniori</label>
-                                            <input type="text" name="maara_lapsi" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_lapsi" class="form-control" value="{{attr_maksu.maara_lapsi}}"/></div>
                                             
                                         <div><label>SKIL-jäsenyys</label>
-                                            <input type="text" name="maara_skil" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_skil" class="form-control" value="{{attr_maksu.maara_skil}}"/></div>
                                     </div>
                                     <div class='col-lg-4'>
                                         <div><label>Liittymismaksu</label>
-                                            <input type="text" name="maara_liity" class="form-control" value=""/></div>
+                                            <input type="text" name="maara_liity" class="form-control" value="{{attr_maksu.maara_liity}}"/></div>
                                     </div>
                                 </div>
 

@@ -4,8 +4,9 @@ class Jasenmaksu extends BaseModel {
 
     public $maksu_id, $vuosi, $maara_lapsi, $maara_aikuinen, $maara_skil, $maara_liity;
 
-    public function __construct($attributes) {
+    public function construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array("validoi_vuosi", "validoi_maara");
     }
 
     public static function all() {
@@ -59,7 +60,7 @@ class Jasenmaksu extends BaseModel {
         return NULL;
     }
 
-    public function paivita($jasen_id) {
+    public function paivita() {
         $year = date('Y');
         $jasenmaksu = $this->find($year);
         $query = DB::connection()->prepare('INSERT INTO Jasen_has_Jasenmaksu (jasen_id, maksu_id) '
@@ -73,4 +74,22 @@ class Jasenmaksu extends BaseModel {
         
     }
 
+    public function validoi_vuosi() {
+        $errors = array();
+        $errors[] = $this->string_notempty_validator($this->vuosi, "'Vuosi'");
+        $errors[] = $this->year_validator($this->vuosi);
+        return $errors;
+    }
+    
+    public function validoi_maara(){
+        $errors = array();
+        $maksut=array($this->maara_aikuinen, $this->maara_lapsi, $this->maara_liity, $this->maara_skil);
+        foreach ($maksut as $maksu) {
+            $errors[] = $this->string_notempty_validator($maksu, "'Määrä'");
+            if(!preg_match("/^[0-9]{1,3}(,|.)[0-9]{0,2}$/", $maksu)){
+                $errors[] = 'Tarkista määrät';
+            }
+        }
+        return $errors;
+    }
 }

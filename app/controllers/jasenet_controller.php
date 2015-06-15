@@ -35,7 +35,6 @@ class JasenController extends BaseController {
         );
 
         $jasen = new Jasen($attributes);
-        print_r($jasen);
         $errors = $jasen->errors();
 
         if (count($errors) == 0) {

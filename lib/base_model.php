@@ -27,7 +27,7 @@ class BaseModel {
     public function string_length_validator($string, $length, $field_name) {
         $errors = '';
         if (strlen($string) < $length) {
-            $errors = $field_name . ' kentän syötteen pituus väintään ' . $length . " merkkiä, pituus oli " . strlen($string) . " merkkiä.";
+            $errors = $field_name . ' kentän syötteen pituus väintään ' . $length . " merkkiä.";
         }
         return $errors;
     }
@@ -48,25 +48,20 @@ class BaseModel {
         } else if (preg_match("/^[0-9]{4}.[0-9]{2}.[0-9]{2}$/", $string)) {
             list($year, $month, $day) = explode("-", $string);
         } else {
-            $errors = 'Tarkista päivämäärä eka testi fail';
+            $errors = 'Tarkista päivämäärä';
             return $errors;
         }
         if (!checkdate($month, $day, $year) || $year < 1900 || $year > $year_now) {
-            $errors = 'Tarkista päivämäärä KOLMAS testi fail';
+            $errors = 'Tarkista päivämäärä';
         }
         return $errors;
     }
 
-    public function function_NotInUse($string) {
-        $errors = "";
-        if ($type === 'puhelin' && preg_match("/\D/", $string)) {
-            $errors .= 'Tarkista puhelinnumero';
+    public function time_validator($string) {
+        $errors = '';
+        if (preg_match("/^([0-2]?[0-9])(:|.)([0-2][0-9])$/", $string)) {
+            $errors = 'Tarkista kellonaika';
         }
-
-        if ($type === 'aika' && !preg_match("/^([0-2]?[0-9])(:|.)([0-2][0-9])$/", $string)) {
-            $errors .= 'Tarkista kellonaika';
-        }
-
         return $errors;
     }
 
