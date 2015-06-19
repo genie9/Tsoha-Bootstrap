@@ -16,17 +16,17 @@
 <form  method="post" action="{{base_path}}/rekisterointi">
     <div class="form-group">
         <div class="col-sm-6">
-            <label>Nimi</label>
+            <label>Nimi*</label>
             <input type="text" name="nimi" class="form-control" placeholder="Etu- ja sukunimi" required value="{{attributes.nimi}}" />
         </div>
         <div class="col-sm-6">
-            <label>Sähköposti</label>
+            <label>Sähköposti*</label>
             <input  type="email" id="email" name="email" class="form-control"  required oninput="document.getElementById('sala').value = document.getElementById('email').value;"/>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-6">
-            <label>Syntymäaika</label>
+            <label>Syntymäaika*</label>
             <input type="text" name="syntyma" class="form-control" required value="{{attributes.syntyma}}" />
         </div>
         <div class="col-sm-6">

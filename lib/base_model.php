@@ -43,10 +43,10 @@ class BaseModel {
     public function date_validator($string) {
         $year_now = date('Y');
         $errors = '';
-        if (preg_match("/^[0-9]{1,2}.[0-9]{1,2}.[0-9]{2,4}$/", $string)) {
+        if (preg_match("/^([0-9]{1,2})\\.([0-9]{1,2})\\.([0-9]{4})$/", $string)) {
             list($day, $month, $year) = explode(".", $string);
             goto mo_cheking;
-        } else if (preg_match("/^[0-9]{4}.[0-9]{2}.[0-9]{2}$/", $string)) {
+        } else if (preg_match("/^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}$/", $string)) {
             list($year, $month, $day) = explode("-", $string);
         } else {
             $errors = 'Tarkista päivämäärä';
@@ -61,7 +61,7 @@ class BaseModel {
 
     public function time_validator($string) {
         $errors = '';
-        if (preg_match("/^([0-2]?[0-9])(:|.)([0-2][0-9])$/", $string)) {
+        if (!preg_match("/^(([01]?[0-9])|2[0-3])(:|\.)[0-5][0-9]$/", $string)) {
             $errors = 'Tarkista kellonaika';
         }
         return $errors;

@@ -3,9 +3,6 @@
 
 <h1>Jäsenprofiili</h1>
 
-<p style="font-style: italic"> tämä sivu näkyy kirjautuessa jäsenille<br>
-    admin-nappi tulee näkymään vain hallituksen jäsenille, vie jäsenrekisteriin </p>
-
 {% if message %}
 <div class="alert alert-success">
     {{message}}
@@ -15,6 +12,9 @@
 <!-- Painikkeet tähän -->
 <div class="row">
     {% if user_logged_in.jasen_id == jasen.jasen_id %}
+    <p style="font-style: italic"> tämä sivu näkyy kirjautuessa jäsenille<br>
+    admin-nappi tulee näkymään vain hallituksen jäsenille, vie jäsenrekisteriin </p>
+    
     <div class="col-md-1">
         <form method="post" action="{{base_path}}/muokkaa_jasen/{{jasen.jasen_id}}" style="display: inline-block;">
            <button type="submit" class="btn btn-default">Muokkaa</button>
@@ -44,6 +44,7 @@
 <ul class="prof-ul">
     <li><strong>Nimi:</strong> {{jasen.nimi}} </li>
     <li><strong>Syntymäaika:</strong> {{jasen.syntyma}} <input type="checkbox" style="display: inline; display: none; margin-left: 10px;"> </li>
+    <li><strong>Huoltaja:</strong> {{jasen.huoltaja}}</li>
     <li><strong>Sähköposti:</strong> {{jasen.email}}</li>
     <li><strong>Osoite:</strong> {{jasen.katuosoite}}, {{jasen.posti}}</li>
     <li><strong>Puhelin:</strong> {{jasen.puhelin}}</li>

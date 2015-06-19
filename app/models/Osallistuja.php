@@ -12,12 +12,12 @@ class Osallistuja extends BaseModel {
         $query = DB::connection()->prepare('INSERT INTO Kokous_has_Jasen (kokous_id, jasen_id)
                 VALUES (:kokous_id, :jasen_id)');
         $query->execute(array(
-            'kokous_id' => $kokous_id, 
+            'kokous_id' => $kokous_id,
             'jasen_id' => $jasen_id));
     }
 
     public static function all() {
-        $query = DB::connection()->prepare('SELECT kokous.pvm, jasen.nimi, kokous.kokous_id FROM kokous_has_jasen '
+        $query = DB::connection()->prepare('SELECT kokous.pvm, jasen.nimi, jasen.jasen_id, kokous.kokous_id FROM kokous_has_jasen '
                 . 'INNER JOIN jasen ON kokous_has_jasen.jasen_id=jasen.jasen_id '
                 . 'INNER JOIN Kokous ON kokous_has_jasen.kokous_id=kokous.kokous_id');
         $query->execute();
@@ -27,11 +27,38 @@ class Osallistuja extends BaseModel {
         foreach ($rows as $row) {
             $osallistujat[] = new Osallistuja(array(
                 'kokous_id' => $row['kokous_id'],
+                'jasen_id' => $row['jasen_id'],
                 'pvm' => $row['pvm'],
                 'nimi' => $row['nimi']
             ));
         }
         return $osallistujat;
+    }
+
+    public static function findByKokous($kokous_id) {
+        $query = DB::connection()->prepare('SELECT kokous.pvm, jasen.nimi, kokous.kokous_id 
+                    FROM kokous_has_jasen 
+                    INNER JOIN Jasen ON kokous_has_jasen.jasen_id=jasen.jasen_id 
+                    INNER JOIN Kokous ON kokous_has_jasen.kokous_id=kokous.kokous_id 
+                    WHERE kokous.kokous_id=:kokous_id');
+        $query->execute(array("kokous_id" => $kokous_id));
+        $rows = $query->fetchAll();
+        $osallistujat = array();
+
+        foreach ($rows as $row) {
+            $osallistujat[] = new Osallistuja(array(
+                'kokous_id' => $row['kokous_id'],
+                'jasen_id' => $row['jasen_id'],
+                'pvm' => $row['pvm'],
+                'nimi' => $row['nimi']
+            ));
+        }
+        return $osallistujat;
+    }
+
+    public static function poista($kokous_id) {
+        $query = DB::connection()->prepare('DELETE FROM Kokous_has_Jasen WHERE kokous_id=:kokous_id');
+        $query->execute(array("kokous_id"=>$kokous_id));
     }
 
 }

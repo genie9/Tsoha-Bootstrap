@@ -32,6 +32,7 @@
             <th>Alaikäisen huoltaja</th>
             <th>Rinnakkais seura</th>
             <th>Laji</th>
+            <th>SKIL jäsenyys</th>
         </tr>
     </thead>
 
@@ -41,23 +42,23 @@
         <tr>
             <td>{{jasen.nimi}}</td>
             <td>{{jasen.syntyma}}</td>
-            
+
             {% if jasen.status == 'true' %}
             <td><label class="label label-success">jäsen</label></td>
             {% endif %}
-            
+
             {% if jasen.status == 'hallitus' %}
             <td><label class="label label-success">hallitus</label></td>
             {% endif %}
-            
+
             {% if jasen.status == 'Kesken' %}
             <td><label class="label label-warning">kesken</label></td>
             {% endif %}
-            
+
             {% if jasen.status == 'maksu' %}
             <td><label class="label label-warning">maksu!</label></td>
             {% endif %}
-            
+
             <td>{{jasen.email}}</td>
             <td>{{jasen.katuosoite}}</td>
             <td>{{jasen.posti}}</td>
@@ -65,25 +66,103 @@
             <td>{{jasen.huoltaja}}</td>
             <td>{{jasen.seura}}</td>
             <td>{{jasen.laji}}</td>
-            
+            {% if jasen.skilstatus == 1 %}
+            <td>jäsen</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
             <!--aktiiviset ainostaan statuksen ollessa 'kesken' tai 'maksu'-->
             {% if jasen.status == 'Kesken' or jasen.status ==  'Maksu' %}  
+            <!--
             <th>
                 <form method="post" action="{{base_path}}/jasenrekisteri/hyvaksy/{{jasen.jasen_id}}" style="display: inline-block;">
                     <button type="submit" class="btn btn-warning btn-xs">Hyväksy</button>
                 </form>
             </th>
-            {% endif %}
-            {% if jasen.status == 'Kesken' %}
+            -->
+            <!-- MODAL MAKSUN HYVÄKSYMINEN -->
             <th>
-                <form method="post" action="{{base_path}}/jasenrekisteri/poista/{{jasen.jasen_id}}" style="display: inline-block;">
-                    <button type="submit" class="btn btn-danger btn-xs">Poista</button>
-                </form>
-            </th>
-            {% endif %}
-        </tr>
+    <form method="post" action="{{base_path}}/hallinta/jasenrekisteri/hyvaksy/{{jasen.jasen_id}}" style="display: inline-block;">      
+        <div class="form-group">
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#maksuModal">
+                Hyväksy
+            </button>
+            <!-- Modal jäsenmaksu -->
+            <div class="modal fade" id="maksuModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="gridSystemModalLabel">Jäsenen maksut vuodelle {{vuosi}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class='col-lg-8'>
+                                    <div class="checkbox form-control">
+                                        <label>
+                                            <input type="checkbox" name="maara_liity" value="{{maksu.maara_liity}}"/>
+                                            Liittymismaksu {{maksu.maara_liity}} euroa
+                                        </label>
+                                    </div>
+
+                                    <h4>Vuosimaksut:</h4>
+                                    <div class="checkbox form-control">
+                                        <label><input type="checkbox" name="maara_aikuinen" id="aikuinen" value="{{maksu.maara_aikuinen}}" onclick="chbx(this)">
+                                            Aikuinen {{maksu.maara_aikuinen}} euroa</label>
+                                    </div>
+                                    <div class="checkbox form-control">
+                                        <label><input type="checkbox" name="maara_lapsi" id="lapsi" value="{{maksu.maara_lapsi}}" onclick="chbx(this)">
+                                            Juniori {{maksu.maara_lapsi}} euroa</label>
+                                    </div>                      
+                                    <div class="checkbox form-control">
+                                        <label>
+                                            <input type="checkbox" name="maara_skil" value="{{maksu.maara_skil}}"/>
+                                            SKIL-maksu {{maksu.maara_skil}} euroa
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <input class="hidden form-control" type="text" name="maksu_id" value="{{maksu.maksu_id}}">
+                        <input class="hidden form-control" type="text" name="vuosi" value="{{maksu.vuosi}}">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning">Hyväksy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</th>
+<!-- END MODAL -->       
+{% endif %}
+
+{% if jasen.status == 'Kesken' %}
+<th>
+<form method="post" action="{{base_path}}/jasenrekisteri/poista/{{jasen.jasen_id}}" style="display: inline-block;">
+    <button type="submit" class="btn btn-danger btn-xs">Poista</button>
+</form>
+</th>
+{% endif %}
+</tr>
 {% endfor %}
 </tbody>
 </table>
+<script>
+    function chbx(obj)
+    {
+        var that = obj;
+        if (document.getElementById(that.id).checked == true) {
+            document.getElementById('aikuinen').checked = false;
+            document.getElementById('lapsi').checked = false;
+            document.getElementById(that.id).checked = true;
+        }
+    }
+</script>
 {% endblock %}
 

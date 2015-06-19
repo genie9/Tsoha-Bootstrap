@@ -67,6 +67,7 @@ CREATE TABLE Jasenmaksu (
 CREATE TABLE Jasen_has_Jasenmaksu (
     jasen_id integer NOT NULL,
     jasenmaksu_id integer NOT NULL,
+    maara numeric NOT NULL,
     PRIMARY KEY (jasen_id, jasenmaksu_id),
     FOREIGN KEY (jasen_id) REFERENCES Jasen,
     FOREIGN KEY (jasenmaksu_id) REFERENCES Jasenmaksu

@@ -1,6 +1,7 @@
 {% extends "hallinta_base.html" %}
 {% block content %}
 
+
 <h2>Kokoukset ja dokumentit</h2>
 
 {% if message1 %}
@@ -32,7 +33,7 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody onload="ifJasen()">
         <!-- Jäsenten listaus -->
         {% for kokous in kokoukset %}
         <tr>
@@ -42,9 +43,9 @@
             <td>{{kokous.tyyppi}}</td>
             <td>
                 {% for osallistuja in osallistujat %}
-                {% if kokous.kokous_id == osallistuja.kokous_id %}
-                    {{osallistuja.nimi}} 
-                {% endif %}
+                    {% if kokous.kokous_id == osallistuja.kokous_id %}
+                        {{osallistuja.nimi}}
+                    {% endif %}
                 {% endfor %}
             </td>
             <td>jokulinkki</td>
@@ -56,16 +57,15 @@
                 </form>
             </th>
 
-            {% if kokous.jasenet_id is empty %} 
             <th>
                 <form method="post" action="{{base_path}}/hallinta/kokoukset/poista/{{kokous.kokous_id}}" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger btn-xs">Poista</button>
                 </form>
             </th>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </tbody>
+
+</tr>
+{% endfor %}
+</tbody>
 </table>
 
 {% endblock %}

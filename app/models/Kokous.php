@@ -66,13 +66,30 @@ class Kokous extends BaseModel {
         }
     }
 
-    public function poista($kokous_id) {
-        $kokous = $this->find($kokous_id);
-        if ($kokous && count($kokous->jasenet_id) === 0) {
-            $query = DB::connection()->prepare('DELETE FROM Kokous WHERE kokous_id = :kokous_id');
-            $query->execute(array('kokous_id' => $kokous_id));
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Kokous SET pvm=:pvm, aika=:aika, paikka=:paikka, tyyppi=:tyyppi'
+                . ' WHERE kokous_id=:kokous_id');
+        $query->execute(array(
+            'kokous_id' => $this->kokous_id,
+            'pvm' => $this->pvm,
+            'aika' => $this->aika,
+            'paikka' => $this->paikka,
+            'tyyppi' => $this->tyyppi));
+
+        Osallistuja::poista($this->kokous_id);
+
+        foreach ($this->jasenet_id as $jasen_id) {
+            $osallistuja = new Osallistuja(array());
+            $osallistuja->save($this->kokous_id, $jasen_id);
         }
-        if ($this->find($kokous_id) != NULL) {
+    }
+
+    public function poista() {
+        try {
+            Osallistuja::poista($this->kokous_id);
+            $query = DB::connection()->prepare('DELETE FROM Kokous WHERE kokous_id = :kokous_id');
+            $query->execute(array('kokous_id' => $this->kokous_id));
+        } catch (Exception $exc) {
             return FALSE;
         }
         return TRUE;

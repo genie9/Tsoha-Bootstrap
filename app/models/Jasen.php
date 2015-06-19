@@ -130,9 +130,7 @@ class Jasen extends BaseModel {
             'laji' => $laji,
             'seura' => $this->seura));
 
-        $row = $query->fetch();
-
-        return $this->jasen_id;
+        return TRUE;
     }
 
     public static function authenticate($nimi, $sala) {
@@ -161,15 +159,14 @@ class Jasen extends BaseModel {
         return NULL;
     }
 
-    public function hyvaksy($jasen_id) {
-        $jasen = $this->find($jasen_id);
-
-        if ($jasen && ($jasen->status === 'Kesken' || $jasen->status === 'maksu')) {
+    public function hyvaksy($maara_skil) {
+        if ($this->status === 'Kesken' || $this->status === 'maksu') {
             $query = DB::connection()->prepare('UPDATE Jasen SET status=:status WHERE jasen_id=:jasen_id');
-            $query->execute(array('jasen_id' => $jasen_id, 'status' => 'true'));
-
-            $jasenmaksu = new Jasenmaksu(array());
-            $jasenmaksu->paivita($jasen_id);
+            $query->execute(array('jasen_id' => $this->jasen_id, 'status' => 'true'));
+            if ($maara_skil != "") {
+                $query = DB::connection()->prepare('UPDATE Jasen SET skilstatus=:skilstatus WHERE jasen_id=:jasen_id');
+                $query->execute(array('jasen_id' => $this->jasen_id, 'skilstatus' => 'true'));
+            }
             return TRUE;
         }
         return FALSE;
@@ -250,9 +247,9 @@ class Jasen extends BaseModel {
         return $errors;
     }
 
-    public function validoi_puhelin($string) {
+    public function validoi_puhelin() {
         $errors = "";
-        if ($type === 'puhelin' && preg_match("/\D/", $string)) {
+        if ($this->puhelin && preg_match("/\D/", $this->puhelin)) {
             $errors[] = 'Tarkista puhelinnumero';
         }
         return $errors;
