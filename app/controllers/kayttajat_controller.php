@@ -30,13 +30,17 @@ class KayttajatController extends BaseController {
             'laji' => $params['laji'],
             'seura' => $params['seura']
         ));
+        if(Jasen::find_by_email($_POST['email']) != NULL){
+            Redirect::to('/login', array('message' => 'Olet jo rekisteröitynyt, voit jatkaa kirjautumalla sisään'));
+        }
+        
         $jasen = new Jasen($attributes);
         
         $errors = $jasen->errors();
 
         if (count($errors) == 0) {
             $jasen->save();
-
+            
             $kayttaja = $jasen->authenticate($jasen->nimi, $jasen->sala);
             $_SESSION['kayttaja'] = $kayttaja->jasen_id;
 

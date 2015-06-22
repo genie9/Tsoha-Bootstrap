@@ -39,6 +39,7 @@
     <tbody>
         <!-- Jäsenten listaus -->
         {% for jasen in jasenet %}
+        {% if jasen.status != 'poistettu' %}
         <tr>
             <td>{{jasen.nimi}}</td>
             <td>{{jasen.syntyma}}</td>
@@ -142,14 +143,16 @@
 <!-- END MODAL -->       
 {% endif %}
 
-{% if jasen.status == 'Kesken' %}
+<!--{% if jasen.status == 'Kesken' %}
+{% endif %}-->
 <th>
 <form method="post" action="{{base_path}}/jasenrekisteri/poista/{{jasen.jasen_id}}" style="display: inline-block;">
     <button type="submit" class="btn btn-danger btn-xs">Poista</button>
 </form>
 </th>
-{% endif %}
+
 </tr>
+{% endif %}
 {% endfor %}
 </tbody>
 </table>

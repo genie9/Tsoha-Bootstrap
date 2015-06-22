@@ -174,9 +174,15 @@ class Jasen extends BaseModel {
 
     public function poista($jasen_id) {
         $jasen = $this->find($jasen_id);
-        if ($jasen && $jasen->status === 'Kesken') {
-            $query = DB::connection()->prepare('DELETE FROM Jasen WHERE jasen_id = :jasen_id');
-            $query->execute(array('jasen_id' => $jasen_id));
+        if ($jasen) {
+            if ($jasen->status === 'Kesken') {
+                $query = DB::connection()->prepare('DELETE FROM Jasen WHERE jasen_id = :jasen_id');
+                $query->execute(array('jasen_id' => $jasen_id));
+            } else {
+                $query = DB::connection()->prepare('UPDATE Jasen SET status=:status WHERE jasen_id = :jasen_id');
+                $query->execute(array('status' => 'poistettu', 'jasen_id' => $jasen_id));
+                return TRUE;
+            }
         }
         if ($this->find($jasen_id) != NULL) {
             return FALSE;

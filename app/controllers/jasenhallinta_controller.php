@@ -27,7 +27,7 @@ class JasenhallintaController extends BaseController {
             Redirect::to('/hallinta/jasenrekisteri', array('message1' => 'Henkilö on poistettu onnistuneesti!'));
         } else {
             $jasenet = Jasen::all();
-            View::make('jasenrekisteri.html', array('jasenet' => $jasenet, 'message2' => 'PHenkilöä ei voida poistaa :('));
+            View::make('jasenrekisteri.html', array('jasenet' => $jasenet, 'message2' => 'Henkilöä ei voida poistaa :('));
         }
     }
 
@@ -74,8 +74,7 @@ class JasenhallintaController extends BaseController {
             'maara_skil' => $maara_skil);
 
         $maksu = new Jasenmaksu($attributes);
-//        print_r($maksu);
-//        exit();
+
         if ($jasen->hyvaksy($maara_skil) && $maksu->luo_maksu($jasen_id) ) {
             Redirect::to('/hallinta/jasenrekisteri', array('message1' => 'Henkilön tiedot päivitetty!'));
         } else {
